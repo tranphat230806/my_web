@@ -3,43 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>GIẢI BÀI TẬP UNITS 1-5 | VOICES | Học vẹt - In đậm từ nhận diện</title>
+    <title>Làm bài tập Grammar - Units 1-5 | Voices Workbook</title>
     <style>
         * {
             box-sizing: border-box;
         }
         body {
             background: #f0f4f9;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 24px 20px;
             color: #1a2c3e;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             background: white;
             border-radius: 36px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.05);
             overflow: hidden;
-            padding: 24px 28px 48px 28px;
+            padding: 28px 32px 48px 32px;
         }
         h1 {
             font-size: 2rem;
             margin: 0 0 0.2rem 0;
             color: #0f2b3d;
-            display: flex;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        h1 small {
-            font-size: 0.85rem;
-            background: #eef2ff;
-            padding: 4px 14px;
-            border-radius: 40px;
-            font-weight: normal;
-            color: #1e4a76;
         }
         .sub {
             background: #fef6e8;
@@ -59,68 +47,96 @@
         .unit-title {
             background: #f8fafd;
             padding: 16px 24px;
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             font-weight: 700;
             border-bottom: 3px solid #ff9f4a;
-            display: flex;
-            align-items: center;
-            gap: 12px;
         }
-        .section {
-            padding: 12px 20px 20px 20px;
+        .exercise {
+            padding: 20px 24px;
             border-bottom: 1px solid #eef2f8;
         }
-        .section-header {
-            font-size: 1.3rem;
+        .exercise-title {
             font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
             color: #1e4a76;
-            margin: 12px 0 16px 0;
-            padding-left: 8px;
-            border-left: 4px solid #ff9f4a;
         }
-        .question-row {
+        .question {
+            margin-bottom: 20px;
+            padding: 12px;
             background: #fefefe;
-            margin-bottom: 18px;
-            padding: 12px 16px;
             border-radius: 20px;
-            border: 1px solid #edf2f7;
+            border: 1px solid #e9edf2;
         }
         .question-text {
             font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            color: #1e3a5f;
+            margin-bottom: 10px;
         }
-        .answer-text {
-            background: #eef3fc;
-            padding: 8px 14px;
-            border-radius: 20px;
-            margin-top: 8px;
-            font-family: 'Courier New', monospace;
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-left: 16px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            accent-color: #ff9f4a;
+            width: 18px;
+            height: 18px;
+        }
+        .fill-input {
+            border: 1px solid #cbd5e1;
+            border-radius: 24px;
+            padding: 6px 14px;
+            font-family: monospace;
+            width: auto;
+            min-width: 180px;
+            margin-top: 6px;
+        }
+        select {
+            border-radius: 24px;
+            padding: 6px 12px;
+            margin-left: 10px;
+        }
+        .btn-check {
+            background: #ff9f4a;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: white;
             font-size: 0.9rem;
+            cursor: pointer;
+            margin: 16px 0 8px;
         }
-        .highlight {
-            background: #fde68a;
-            color: #92400e;
-            font-weight: 700;
-            padding: 0 4px;
-            border-radius: 8px;
-            display: inline-block;
+        .btn-check:hover {
+            background: #e56e1a;
         }
-        .badge {
-            background: #ff9f4a20;
-            color: #c2410c;
-            font-size: 0.7rem;
-            border-radius: 20px;
-            padding: 2px 8px;
-            margin-left: 8px;
+        .feedback {
+            background: #f4fafd;
+            padding: 12px 18px;
+            border-radius: 24px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            border-left: 3px solid #ff9f4a;
+        }
+        .correct {
+            color: #0f6e3f;
+            font-weight: 500;
+        }
+        .incorrect {
+            color: #b91c1c;
         }
         hr {
-            margin: 12px 0;
+            margin: 8px 0;
         }
         footer {
             text-align: center;
-            margin-top: 36px;
+            margin-top: 32px;
             font-size: 0.8rem;
             color: #6c7e97;
         }
@@ -128,230 +144,196 @@
             .container {
                 padding: 16px;
             }
+            .fill-input {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>📘 GIẢI BÀI TẬP WORKBOOK <small>VOICES Intermediate Plus | UNITS 1 → 5</small></h1>
-    <div class="sub">
-        🔥 <strong>Học vẹt + nhận diện nhanh</strong> — Các <span class="highlight">từ được in đậm</span> là dấu hiệu nhận biết giúp bạn chọn đáp án mà không cần hiểu sâu.
-    </div>
+    <h1>📝 Làm bài tập Grammar</h1>
+    <div class="sub">✨ Units 1 → 5 | Sắp xếp câu, nối câu, chọn đáp án, điền từ, chia động từ, viết lại câu. <br>👉 Chọn đáp án / điền vào ô trống → bấm "Kiểm tra" để xem kết quả.</div>
 
     <!-- ================= UNIT 1 ================= -->
     <div class="unit">
-        <div class="unit-title">🔷 UNIT 1: YOUR LIFE</div>
+        <div class="unit-title">🔷 UNIT 1: Your life</div>
         
-        <div class="section">
-            <div class="section-header">📖 GRAMMAR (trang 6-7)</div>
-            
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 1: Sắp xếp câu hỏi</div>
-                <div class="answer-text">1. <span class="highlight">Do</span> you remember my friend Jackie?<br>
-                2. <span class="highlight">Isn't</span> Wayan's brother living in Indonesia?<br>
-                3. <span class="highlight">Haven't</span> you made some new friends at work?<br>
-                4. <span class="highlight">Didn't</span> Wang grow up in China?<br>
-                5. <span class="highlight">Are</span> your oldest friends still living in your hometown?<br>
-                6. <span class="highlight">Have</span> you met Sylvie's friend from Krakow?</div>
-            </div>
+        <!-- Ex1: word order -->
+        <div class="exercise" id="u1ex1">
+            <div class="exercise-title">📌 Exercise 1: Sắp xếp câu hỏi</div>
+            <div class="question">1️⃣ my / Jackie / you / do / remember / friend / ?<br><input type="text" id="u1q1" class="fill-input" placeholder="Nhập câu hỏi"></div>
+            <div class="question">2️⃣ Indonesia / brother / Wayan's / isn't / in / living / ?<br><input type="text" id="u1q2" class="fill-input"></div>
+            <div class="question">3️⃣ friends / work / new / at / some / haven't / made / you / ?<br><input type="text" id="u1q3" class="fill-input"></div>
+            <div class="question">4️⃣ in / Wang / didn't / up / China / grow / ?<br><input type="text" id="u1q4" class="fill-input"></div>
+            <div class="question">5️⃣ are / living / hometown / your / in / still / your / friends / oldest / ?<br><input type="text" id="u1q5" class="fill-input"></div>
+            <div class="question">6️⃣ friend / Krakow / have / from / Sylvie's / met / you / ?<br><input type="text" id="u1q6" class="fill-input"></div>
+            <button class="btn-check" onclick="checkU1Ex1()">✅ Kiểm tra Ex1</button>
+            <div id="fbU1Ex1" class="feedback"></div>
+        </div>
 
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 2: Nối câu hỏi - câu trả lời</div>
-                <div class="answer-text">1. <span class="highlight">Do</span> you remember → <strong>c. Yes, I do.</strong><br>
-                2. <span class="highlight">Isn't</span> → <strong>f. No, he isn't.</strong><br>
-                3. <span class="highlight">Haven't</span> → <strong>d. No, I haven't yet.</strong><br>
-                4. <span class="highlight">Didn't</span> → <strong>e. Yes, he did.</strong><br>
-                5. <span class="highlight">Are</span> → <strong>b. No, they aren't.</strong><br>
-                6. <span class="highlight">Have</span> → <strong>a. Yes, I have. She's lovely.</strong></div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 3: Chọn câu trả lời đúng</div>
-                <div class="answer-text">1. We've <span class="highlight">known</span> for 20 years → <strong>B. You have?</strong><br>
-                2. I <span class="highlight">didn't know</span> → <strong>A. Neither did I.</strong><br>
-                3. <span class="highlight">Did</span> you become friends? → <strong>C. Yes, we did.</strong><br>
-                4. You <span class="highlight">didn't see</span> → <strong>D. B and C are correct</strong><br>
-                5. I <span class="highlight">met</span> Karla → <strong>A. She's from there, isn't she?</strong><br>
-                6. Can you give me... → <strong>B. Didn't I already give it to you?</strong><br>
-                7. Piet and Carmen <span class="highlight">met</span> → <strong>A. They met at work, didn't they?</strong></div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 4: Điền trợ động từ</div>
-                <div class="answer-text">1. <span class="highlight">have</span> &nbsp;2. <span class="highlight">haven't</span> &nbsp;3. <span class="highlight">aren't</span> &nbsp;4. <span class="highlight">don't</span> &nbsp;5. <span class="highlight">do</span><br>
-                6. <span class="highlight">Did</span> &nbsp;7. (you?) &nbsp;8. <span class="highlight">was</span> &nbsp;9. <span class="highlight">were</span> &nbsp;10. <span class="highlight">do</span></div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 5: Sắp xếp hội thoại</div>
-                <div class="answer-text">1g → 2a → 3h → 4b → 5f → 6c → 7i → 8j → 9d → 10e</div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 6: Điền một từ</div>
-                <div class="answer-text">1. <span class="highlight">Do</span> &nbsp;2. <span class="highlight">Yes</span> &nbsp;3. <span class="highlight">is</span> &nbsp;4. <span class="highlight">No</span> &nbsp;5. <span class="highlight">has</span> &nbsp;6. <span class="highlight">Neither</span> &nbsp;7. <span class="highlight">is</span> &nbsp;8. <span class="highlight">do</span></div>
-            </div>
+        <!-- Ex3: multiple choice -->
+        <div class="exercise">
+            <div class="exercise-title">📌 Exercise 3: Chọn câu trả lời đúng</div>
+            <div class="question">1️⃣ We've known each other for twenty years.<br><label class="option"><input type="radio" name="u1mc1" value="A"> A. You did?</label><label class="option"><input type="radio" name="u1mc1" value="B"> B. You have?</label><label class="option"><input type="radio" name="u1mc1" value="C"> C. You are?</label></div>
+            <div class="question">2️⃣ I didn't know Jorge when we were kids.<br><label><input type="radio" name="u1mc2" value="A"> A. Neither did I.</label><label><input type="radio" name="u1mc2" value="B"> B. So did I.</label></div>
+            <div class="question">3️⃣ Did you become friends when you first met?<br><label><input type="radio" name="u1mc3" value="A"> A. Yes, I was.</label><label><input type="radio" name="u1mc3" value="B"> B. Yes, we have.</label><label><input type="radio" name="u1mc3" value="C"> C. Yes, we did.</label></div>
+            <div class="question">4️⃣ You didn't see Mr. Ong yesterday.<br><label><input type="radio" name="u1mc4" value="A"> A. No, you didn't.</label><label><input type="radio" name="u1mc4" value="B"> B. Yes, that's right, I did see him.</label><label><input type="radio" name="u1mc4" value="C"> C. Actually, I did see him.</label><label><input type="radio" name="u1mc4" value="D"> D. B and C are correct.</label></div>
+            <button class="btn-check" onclick="checkU1Ex3()">✅ Kiểm tra Ex3</button>
+            <div id="fbU1Ex3" class="feedback"></div>
         </div>
     </div>
 
     <!-- ================= UNIT 2 ================= -->
     <div class="unit">
-        <div class="unit-title">🔷 UNIT 2: BREAKING THE RULES</div>
-        <div class="section">
-            <div class="section-header">📖 GRAMMAR (trang 14-15)</div>
-            
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 1: Chọn dạng đúng của động từ</div>
-                <div class="answer-text">1. <span class="highlight">happened</span> &nbsp;2. <span class="highlight">noticed</span> &nbsp;3. <span class="highlight">hadn't written</span><br>
-                4. <span class="highlight">looked</span> &nbsp;5. <span class="highlight">appeared</span> &nbsp;6. <span class="highlight">was using</span><br>
-                7. <span class="highlight">did you do</span> &nbsp;8. <span class="highlight">reported</span><br>
-                9. <span class="highlight">happened</span> &nbsp;10. <span class="highlight">was looking</span> &nbsp;11. <span class="highlight">changed</span></div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 2: Sắp xếp câu hỏi</div>
-                <div class="answer-text">1. <span class="highlight">What</span> were they doing <span class="highlight">when</span> he called?<br>
-                2. <span class="highlight">Had</span> you heard of the company <span class="highlight">before</span> they contacted you?<br>
-                3. <span class="highlight">Were</span> they expecting the package <span class="highlight">when</span> it arrived?<br>
-                4. <span class="highlight">Where</span> were you working <span class="highlight">when</span> you met Dimitri?<br>
-                5. <span class="highlight">Hadn't</span> you used the credit card <span class="highlight">for</span> online shopping?<br>
-                6. <span class="highlight">Did</span> they ask <span class="highlight">whether</span> it had been stolen?<br>
-                7. <span class="highlight">Was</span> she using her laptop <span class="highlight">when</span> she was hacked?<br>
-                8. <span class="highlight">Why</span> hadn't you locked the door <span class="highlight">before</span> you left?</div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 3: Chia động từ (QKĐ, QKTD, QKHT)</div>
-                <div class="answer-text">1. <span class="highlight">heard</span> &nbsp;2. <span class="highlight">was working</span> &nbsp;3. <span class="highlight">had finished</span><br>
-                4. <span class="highlight">was looking</span> &nbsp;5. <span class="highlight">didn't have</span> &nbsp;6. <span class="highlight">said</span><br>
-                7. <span class="highlight">lost</span> &nbsp;8. <span class="highlight">had saved</span> &nbsp;9. <span class="highlight">learned</span></div>
-            </div>
+        <div class="unit-title">🔷 UNIT 2: Breaking the rules</div>
+        <div class="exercise">
+            <div class="exercise-title">📌 Exercise 1: Chọn dạng đúng (past tense)</div>
+            <div class="question">Something weird <select id="u2q1"><option value="">chọn</option><option value="happened">happened</option><option value="was happening">was happening</option></select> to me this morning.<br>
+            I was looking at my social media when I <select id="u2q2"><option value="">chọn</option><option value="noticed">noticed</option><option value="was noticing">was noticing</option></select> some new posts.<br>
+            They were written a few hours before – but I <select id="u2q3"><option value="">chọn</option><option value="wasn't writing">wasn't writing</option><option value="hadn't written">hadn't written</option></select> them.<br>
+            Then I <select id="u2q4"><option value="">chọn</option><option value="looked">looked</option><option value="was looking">was looking</option></select> at my messages.<br>
+            a new message <select id="u2q5"><option value="">chọn</option><option value="had appeared">had appeared</option><option value="appeared">appeared</option></select> but I didn't write it.<br>
+            the hacker <select id="u2q6"><option value="">chọn</option><option value="was using">was using</option><option value="had used">had used</option></select> the account at the same time as me!<br>
+            So what <select id="u2q7"><option value="">chọn</option><option value="did you do">did you do</option><option value="were you doing">were you doing</option></select>?<br>
+            I immediately <select id="u2q8"><option value="">chọn</option><option value="had reported">had reported</option><option value="reported">reported</option></select> it.<br>
+            While I <select id="u2q9"><option value="">chọn</option><option value="was looking">was looking</option><option value="had looked">had looked</option></select> at my timeline, the hacker's posts disappeared.<br>
+            Then I <select id="u2q10"><option value="">chọn</option><option value="was changing">was changing</option><option value="changed">changed</option></select> my password.</div>
+            <button class="btn-check" onclick="checkU2Ex1()">✅ Kiểm tra Ex1</button>
+            <div id="fbU2Ex1" class="feedback"></div>
         </div>
     </div>
 
     <!-- ================= UNIT 3 ================= -->
     <div class="unit">
-        <div class="unit-title">🔷 UNIT 3: IMAGINING THE FUTURE</div>
-        <div class="section">
-            <div class="section-header">📖 GRAMMAR (trang 24-25)</div>
-            
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 1 & 2: Chọn đáp án SAI và sửa</div>
-                <div class="answer-text">1. ❌ <span class="highlight">probably going to work</span> → ✅ <span class="highlight">will probably work</span><br>
-                2. ❌ <span class="highlight">doing jobs</span> → ✅ <span class="highlight">do jobs</span><br>
-                3. ❌ <span class="highlight">probably control</span> → ✅ <span class="highlight">will probably control</span><br>
-                4. ❌ <span class="highlight">more electricity is needed</span> → ✅ <span class="highlight">more electricity will be needed</span><br>
-                5. ❌ <span class="highlight">a better solution will be invented</span> → ✅ <span class="highlight">a better solution is invented</span><br>
-                6. ❌ <span class="highlight">have built</span> → ✅ <span class="highlight">will have built</span></div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 3: Chia động từ (will/going to + thì HT trong mệnh đề thời gian)</div>
-                <div class="answer-text">1. <span class="highlight">is</span> (by the time he <span class="highlight">is</span> 21)<br>
-                2. <span class="highlight">ends</span> (After the cold weather <span class="highlight">ends</span>)<br>
-                3. <span class="highlight">get</span> (As soon as I <span class="highlight">get</span> a job)<br>
-                4. <span class="highlight">won't leave</span> (She <span class="highlight">won't leave</span> unless she finds)<br>
-                5. <span class="highlight">will probably find</span><br>
-                6. <span class="highlight">will feel</span></div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 4: Chọn liên từ thời gian</div>
-                <div class="answer-text">1. <span class="highlight">as soon as</span> &nbsp;2. <span class="highlight">unless</span> &nbsp;3. <span class="highlight">By the time</span><br>
-                4. <span class="highlight">once</span> &nbsp;5. <span class="highlight">When</span> &nbsp;6. <span class="highlight">after</span></div>
-            </div>
+        <div class="unit-title">🔷 UNIT 3: Imagining the future</div>
+        <div class="exercise">
+            <div class="exercise-title">📌 Exercise 3: Chia động từ (will / going to + HT)</div>
+            <div class="question">1️⃣ He might finish university by the time he <input type="text" id="u3q1" class="fill-input" placeholder="be"> 21 years old.</div>
+            <div class="question">2️⃣ After the cold weather <input type="text" id="u3q2" class="fill-input" placeholder="end">, they're going to plant a garden.</div>
+            <div class="question">3️⃣ As soon as I <input type="text" id="u3q3" class="fill-input" placeholder="get"> a job, I will buy a bicycle.</div>
+            <div class="question">4️⃣ She <input type="text" id="u3q4" class="fill-input" placeholder="not/leave"> her apartment unless she finds a better one.</div>
+            <div class="question">5️⃣ When we get home, we <input type="text" id="u3q5" class="fill-input" placeholder="probably/find"> a letter from Naomi.</div>
+            <div class="question">6️⃣ I think I <input type="text" id="u3q6" class="fill-input" placeholder="feel"> really nervous the day before my exam.</div>
+            <button class="btn-check" onclick="checkU3Ex3()">✅ Kiểm tra Ex3</button>
+            <div id="fbU3Ex3" class="feedback"></div>
         </div>
     </div>
 
     <!-- ================= UNIT 4 ================= -->
     <div class="unit">
-        <div class="unit-title">🔷 UNIT 4: GOOD TASTE</div>
-        <div class="section">
-            <div class="section-header">📖 GRAMMAR (trang 32-33)</div>
-            
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 1: Hoàn thành câu với từ so sánh</div>
-                <div class="answer-text">1. <span class="highlight">b. by far the oldest</span><br>
-                2. <span class="highlight">g. much older than</span><br>
-                3. <span class="highlight">a. a bit older than</span><br>
-                4. <span class="highlight">f. as old as</span><br>
-                5. <span class="highlight">c. more and more popular</span><br>
-                6. <span class="highlight">e. far more easily than</span><br>
-                7. <span class="highlight">g. much older than</span></div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 2: Thêm từ vào câu</div>
-                <div class="answer-text">1. Pho is <span class="highlight">one of</span> Vietnam's most famous foods.<br>
-                2. He's cooking at home <span class="highlight">more</span> regularly now.<br>
-                3. We have rice <span class="highlight">much</span> more often than pasta.<br>
-                4. She likes her coffee <span class="highlight">a bit</span> sweeter than I do.<br>
-                5. This is <span class="highlight">by far</span> the best lunch I've had.</div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 3: Chọn cụm từ thay thế</div>
-                <div class="answer-text">1. <span class="highlight">is less spicy than</span><br>
-                2. <span class="highlight">a bit</span><br>
-                3. <span class="highlight">much</span><br>
-                4. <span class="highlight">by far</span><br>
-                5. <span class="highlight">much</span></div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 4: Viết lại câu (nghĩa tương tự)</div>
-                <div class="answer-text">1. This mango is <span class="highlight">the sweetest I've ever had.</span><br>
-                2. White rice is <span class="highlight">much more common than brown rice.</span><br>
-                3. There are <span class="highlight">more and more</span> sushi restaurants in town.<br>
-                4. The soup isn't <span class="highlight">as spicy as I expected it to be.</span><br>
-                5. I was eating <span class="highlight">more slowly than</span> Helena and Dave.</div>
-            </div>
+        <div class="unit-title">🔷 UNIT 4: Good taste</div>
+        <div class="exercise">
+            <div class="exercise-title">📌 Exercise 4: Viết lại câu (so sánh)</div>
+            <div class="question">1️⃣ I have never had a mango that was nearly as sweet as this one.<br>→ This mango is <input type="text" id="u4q1" class="fill-input" style="width:70%"></div>
+            <div class="question">2️⃣ Brown rice is much less common than white rice.<br>→ White rice is <input type="text" id="u4q2" class="fill-input" style="width:70%"></div>
+            <div class="question">3️⃣ The number of sushi restaurants in town is increasing.<br>→ There are <input type="text" id="u4q3" class="fill-input" style="width:70%"> sushi restaurants in town.</div>
+            <div class="question">4️⃣ I expected the soup to be spicier.<br>→ The soup isn't <input type="text" id="u4q4" class="fill-input" style="width:70%"></div>
+            <div class="question">5️⃣ Helena and Dave were eating more quickly than me.<br>→ I was eating <input type="text" id="u4q5" class="fill-input" style="width:70%"> than Helena and Dave.</div>
+            <button class="btn-check" onclick="checkU4Ex4()">✅ Kiểm tra Ex4</button>
+            <div id="fbU4Ex4" class="feedback"></div>
         </div>
     </div>
 
     <!-- ================= UNIT 5 ================= -->
     <div class="unit">
-        <div class="unit-title">🔷 UNIT 5: LET'S PLAY</div>
-        <div class="section">
-            <div class="section-header">📖 GRAMMAR (trang 42-43)</div>
-            
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 1: Sắp xếp tin nhắn</div>
-                <div class="answer-text">1b → 2a → 3e → 4d → 5c → 6f</div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 2: Nối câu</div>
-                <div class="answer-text">1. I <span class="highlight">should have</span> told them → <strong>f</strong><br>
-                2. He <span class="highlight">couldn't have</span> seen → <strong>a</strong><br>
-                3. We <span class="highlight">would have</span> called → <strong>d</strong><br>
-                4. You <span class="highlight">could have</span> entered → <strong>e</strong><br>
-                5. I <span class="highlight">shouldn't have</span> lost → <strong>b</strong><br>
-                6. She <span class="highlight">wouldn't have</span> won → <strong>c</strong></div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 3: Chọn đáp án đúng</div>
-                <div class="answer-text">1. <span class="highlight">should've</span> &nbsp;2. <span class="highlight">wouldn't</span> &nbsp;3. <span class="highlight">could've</span><br>
-                4. <span class="highlight">would've</span> &nbsp;5. <span class="highlight">shouldn't</span> &nbsp;6. <span class="highlight">could've</span></div>
-            </div>
-
-            <div class="question-row">
-                <div class="question-text">📌 Exercise 4: Điền would have / could have / should have</div>
-                <div class="answer-text">1. <span class="highlight">wouldn't have</span><br>
-                2. <span class="highlight">could have</span><br>
-                3. <span class="highlight">would have</span><br>
-                4. <span class="highlight">should have</span><br>
-                5. <span class="highlight">shouldn't have</span><br>
-                6. <span class="highlight">couldn't have</span></div>
-            </div>
+        <div class="unit-title">🔷 UNIT 5: Let's play</div>
+        <div class="exercise">
+            <div class="exercise-title">📌 Exercise 4: Điền would have / could have / should have</div>
+            <div class="question">1️⃣ The coach was happy that the team played well. She <input type="text" id="u5q1" class="fill-input" placeholder="?"> been happy if it had played poorly.</div>
+            <div class="question">2️⃣ She wasn't able to play because she didn't have the right shoes. If she'd had them, she <input type="text" id="u5q2" class="fill-input" placeholder="?"> taken part.</div>
+            <div class="question">3️⃣ The bus broke down, so we were late. If the bus hadn't broken down, we <input type="text" id="u5q3" class="fill-input" placeholder="?"> been on time.</div>
+            <div class="question">4️⃣ I forgot we were supposed to play last night. I <input type="text" id="u5q4" class="fill-input" placeholder="?"> remembered!</div>
+            <div class="question">5️⃣ I was too tired on game day. I <input type="text" id="u5q5" class="fill-input" placeholder="?"> stayed up so late.</div>
+            <div class="question">6️⃣ We were missing three team members, so we <input type="text" id="u5q6" class="fill-input" placeholder="?"> won the game.</div>
+            <button class="btn-check" onclick="checkU5Ex4()">✅ Kiểm tra Ex4</button>
+            <div id="fbU5Ex4" class="feedback"></div>
         </div>
     </div>
-
-    <footer>
-        📘 VOICES Intermediate Plus Workbook | ✅ ĐÁP ÁN UNITS 1-5 (Grammar)<br>
-        🟡 <span class="highlight">Từ được bôi vàng</span> = dấu hiệu nhận biết giúp bạn chọn đáp án nhanh.
-    </footer>
+    <footer>📘 Voices Intermediate Plus Workbook | Nhập câu trả lời → bấm Kiểm tra để đối chiếu đáp án.</footer>
 </div>
+
+<script>
+    // Unit 1 Ex1
+    function checkU1Ex1() {
+        let answers = [
+            "Do you remember my friend Jackie?",
+            "Isn't Wayan's brother living in Indonesia?",
+            "Haven't you made some new friends at work?",
+            "Didn't Wang grow up in China?",
+            "Are your oldest friends still living in your hometown?",
+            "Have you met Sylvie's friend from Krakow?"
+        ];
+        let correct = true;
+        for(let i=1;i<=6;i++) {
+            let user = document.getElementById(`u1q${i}`).value.trim().toLowerCase();
+            if(user !== answers[i-1].toLowerCase()) correct = false;
+        }
+        let fb = document.getElementById("fbU1Ex1");
+        if(correct) fb.innerHTML = "<span class='correct'>✅ Chính xác! Tất cả câu đều đúng.</span>";
+        else fb.innerHTML = "<span class='incorrect'>⚠️ Có câu sai. Đáp án: 1. Do you remember my friend Jackie? 2. Isn't Wayan's brother living in Indonesia? 3. Haven't you made some new friends at work? 4. Didn't Wang grow up in China? 5. Are your oldest friends still living in your hometown? 6. Have you met Sylvie's friend from Krakow?</span>";
+    }
+    function checkU1Ex3() {
+        let ans = ["B","A","C","D"];
+        let correct = true;
+        for(let i=1;i<=4;i++) {
+            let sel = document.querySelector(`input[name="u1mc${i}"]:checked`);
+            if(!sel || sel.value !== ans[i-1]) correct = false;
+        }
+        let fb = document.getElementById("fbU1Ex3");
+        if(correct) fb.innerHTML = "<span class='correct'>✅ Đúng rồi! (1B,2A,3C,4D)</span>";
+        else fb.innerHTML = "<span class='incorrect'>Đáp án: 1B (You have?), 2A (Neither did I), 3C (Yes, we did), 4D (B and C are correct).</span>";
+    }
+    function checkU2Ex1() {
+        let ans = ["happened","noticed","hadn't written","looked","appeared","was using","did you do","reported","was looking","changed"];
+        let correct = true;
+        for(let i=1;i<=10;i++) {
+            let sel = document.getElementById(`u2q${i}`).value;
+            if(sel !== ans[i-1]) correct = false;
+        }
+        let fb = document.getElementById("fbU2Ex1");
+        if(correct) fb.innerHTML = "<span class='correct'>✅ Xuất sắc! Các thì quá khứ chính xác.</span>";
+        else fb.innerHTML = "<span class='incorrect'>Đáp án: happened, noticed, hadn't written, looked, appeared, was using, did you do, reported, was looking, changed.</span>";
+    }
+    function checkU3Ex3() {
+        let ans = ["is","ends","get","won't leave","will probably find","will feel"];
+        let correct = true;
+        for(let i=1;i<=6;i++) {
+            let user = document.getElementById(`u3q${i}`).value.trim().toLowerCase();
+            if(user !== ans[i-1].toLowerCase()) correct = false;
+        }
+        let fb = document.getElementById("fbU3Ex3");
+        if(correct) fb.innerHTML = "<span class='correct'>✅ Đúng! Mệnh đề thời gian tương lai dùng HTĐ, mệnh đề chính will/going to.</span>";
+        else fb.innerHTML = "<span class='incorrect'>Đáp án: is / ends / get / won't leave / will probably find / will feel.</span>";
+    }
+    function checkU4Ex4() {
+        let ans = [
+            "the sweetest I've ever had",
+            "much more common than brown rice",
+            "more and more",
+            "as spicy as I expected it to be",
+            "more slowly"
+        ];
+        let correct = true;
+        for(let i=1;i<=5;i++) {
+            let user = document.getElementById(`u4q${i}`).value.trim().toLowerCase();
+            if(user !== ans[i-1].toLowerCase()) correct = false;
+        }
+        let fb = document.getElementById("fbU4Ex4");
+        if(correct) fb.innerHTML = "<span class='correct'>✅ Hoàn hảo! Viết lại câu đúng cấu trúc so sánh.</span>";
+        else fb.innerHTML = "<span class='incorrect'>Đáp án: 1. the sweetest I've ever had, 2. much more common than brown rice, 3. more and more, 4. as spicy as I expected it to be, 5. more slowly.</span>";
+    }
+    function checkU5Ex4() {
+        let ans = ["wouldn't have","could have","would have","should have","shouldn't have","couldn't have"];
+        let correct = true;
+        for(let i=1;i<=6;i++) {
+            let user = document.getElementById(`u5q${i}`).value.trim().toLowerCase();
+            if(user !== ans[i-1].toLowerCase()) correct = false;
+        }
+        let fb = document.getElementById("fbU5Ex4");
+        if(correct) fb.innerHTML = "<span class='correct'>✅ Chính xác! Thành thạo could have / should have / would have.</span>";
+        else fb.innerHTML = "<span class='incorrect'>Đáp án: wouldn't have, could have, would have, should have, shouldn't have, couldn't have.</span>";
+    }
+</script>
 </body>
 </html>
