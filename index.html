@@ -1,707 +1,438 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Game học từ vựng - Trắc nghiệm Trung Việt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Luyện từ vựng - Giáo trình đọc báo tiếng Trung</title>
     <style>
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(145deg, #1a3c2c 0%, #0e2a1e 100%);
+            font-family: 'Segoe UI', 'Poppins', 'Noto Sans', system-ui, -apple-system, 'Roboto', sans-serif;
+            background: linear-gradient(145deg, #f7f3e9 0%, #fff4e6 100%);
+            margin: 0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 16px;
+            padding: 20px;
         }
 
+        /* Container chính */
         .game-container {
-            max-width: 600px;
+            max-width: 700px;
             width: 100%;
-            background: #fffef7;
-            border-radius: 56px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 64px 48px 64px 48px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 215, 150, 0.5);
             overflow: hidden;
-            padding: 20px 20px 30px;
+            backdrop-filter: blur(2px);
+            transition: all 0.2s ease;
         }
 
-        .header {
+        /* header */
+        .game-header {
+            background: #c93a2b;
+            background: linear-gradient(135deg, #b52e1a, #d6452c);
+            padding: 20px 25px;
+            color: white;
             text-align: center;
-            margin-bottom: 20px;
         }
 
-        h1 {
+        .game-header h1 {
+            margin: 0;
             font-size: 1.7rem;
-            color: #d64b2c;
-            letter-spacing: -0.5px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .stats {
             display: flex;
             justify-content: space-between;
-            background: #f0eee4;
-            padding: 12px 20px;
+            margin-top: 15px;
+            background: #9e2a1c70;
+            padding: 8px 18px;
             border-radius: 60px;
-            margin: 12px 0;
-            font-weight: bold;
-        }
-
-        .score, .q-count {
-            background: #2e5a3a;
-            color: white;
-            padding: 4px 16px;
-            border-radius: 40px;
+            font-weight: 600;
             font-size: 1rem;
         }
 
+        /* thẻ câu hỏi */
         .question-card {
-            background: #ffffff;
-            border-radius: 48px;
-            padding: 32px 16px;
-            margin: 16px 0;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            border: 1px solid #f0dbb2;
+            padding: 30px 25px 20px;
             text-align: center;
         }
 
         .chinese-word {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
-            color: #2c4b35;
+            background: #fff0e0;
+            padding: 30px 15px;
+            border-radius: 48px;
+            box-shadow: inset 0 1px 4px #0001, 0 12px 18px -8px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            color: #3e2a1f;
             letter-spacing: 2px;
             word-break: break-word;
         }
 
-        .pinyin {
-            font-size: 1.2rem;
-            color: #b86f2c;
-            margin-top: 12px;
-            font-family: monospace;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .opt-btn {
-            background: #f9f7ef;
-            border: 2px solid #e2d8bd;
-            border-radius: 100px;
-            padding: 14px 20px;
+        .pinyin-hint {
             font-size: 1rem;
-            text-align: left;
-            font-weight: 500;
-            color: #2d3e2b;
-            transition: all 0.1s ease;
-            cursor: pointer;
-            font-family: inherit;
+            color: #b46f4a;
+            margin-top: -18px;
+            margin-bottom: 20px;
+            font-style: italic;
         }
 
-        .opt-btn:hover {
-            background: #f0ebda;
+        /* đáp án */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 25px;
+            padding: 0 6px;
         }
 
-        .correct {
-            background: #9bdd9b;
-            border-color: #2e7d32;
-            color: #1a4a1a;
-            pointer-events: none;
-        }
-
-        .wrong {
-            background: #f3b5b5;
-            border-color: #c7362b;
-            color: #7a2e1a;
-            pointer-events: none;
-            text-decoration: line-through;
-        }
-
-        .disabled-opt {
-            pointer-events: none;
-            opacity: 0.7;
-        }
-
-        .feedback {
-            text-align: center;
+        .option-btn {
+            background: white;
+            border: 2px solid #e9cfb0;
+            border-radius: 100px;
+            padding: 14px 8px;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            color: #2d2b26;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .option-btn:hover {
+            background: #fff3e8;
+            transform: scale(0.97);
+            border-color: #d68b5a;
+        }
+
+        /* feedback + nút */
+        .feedback-area {
+            text-align: center;
+            padding: 12px 20px 20px;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
             padding: 12px;
             border-radius: 60px;
-            margin: 12px 0;
+            background: #f3ede5;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .message.correct {
+            background: #cbe6cf;
+            color: #1f5a2e;
+        }
+
+        .message.wrong {
+            background: #ffe0db;
+            color: #bc3f2c;
         }
 
         .next-btn {
-            background: #d64b2c;
+            background: #2b6e4f;
             color: white;
             border: none;
-            border-radius: 60px;
-            padding: 16px;
+            padding: 12px 32px;
             font-size: 1.2rem;
             font-weight: bold;
-            width: 100%;
+            border-radius: 60px;
+            width: 80%;
             cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             margin-top: 8px;
-            transition: 0.2s;
         }
 
         .next-btn:active {
-            transform: scale(0.97);
-            background: #b03a1f;
+            transform: scale(0.96);
         }
 
-        .restart-btn {
-            background: #3f6b4c;
-            margin-top: 12px;
+        .reset-btn {
+            background: #ca744a;
+            margin-top: 10px;
+            width: 50%;
         }
 
-        .result {
+        .score-progress {
+            background: #f1e7dc;
+            padding: 12px;
             text-align: center;
-            background: #f1f8e9;
-            border-radius: 48px;
-            padding: 24px;
-            margin-top: 20px;
+            font-weight: 600;
+            border-top: 1px solid #eedbc8;
+            color: #5c3e2b;
+            font-size: 0.95rem;
         }
 
-        .hide {
-            display: none;
-        }
-
-        footer {
-            font-size: 0.7rem;
-            text-align: center;
-            color: #998f70;
-            margin-top: 20px;
+        @media (max-width: 520px) {
+            .chinese-word { font-size: 2.2rem; padding: 20px; }
+            .options-grid { gap: 10px; }
+            .option-btn { font-size: 0.9rem; padding: 12px 6px; }
         }
     </style>
 </head>
 <body>
 <div class="game-container" id="gameApp">
-    <div class="header">
-        <h1>📖 选意思 · Chọn nghĩa</h1>
+    <div class="game-header">
+        <h1>📰 读报学词</h1>
         <div class="stats">
-            <span class="score">⭐ Điểm: <span id="scoreValue">0</span></span>
-            <span class="q-count">📋 <span id="currentIdx">1</span> / <span id="totalCount">0</span></span>
+            <span>📋 Tiến độ: <span id="currentIdx">1</span>/<span id="totalCount">0</span></span>
+            <span>✅ Đúng: <span id="correctCount">0</span></span>
         </div>
     </div>
-
-    <div id="quizPanel">
-        <div class="question-card">
-            <div class="chinese-word" id="chineseText">照相机</div>
-            <div class="pinyin" id="pinyinText">zhàoxiàngjī</div>
+    <div class="question-card">
+        <div class="chinese-word" id="questionWord">加载中...</div>
+        <div class="pinyin-hint" id="pinyinDisplay"></div>
+        <div class="options-grid" id="optionsContainer">
+            <button class="option-btn">A</button>
+            <button class="option-btn">B</button>
+            <button class="option-btn">C</button>
+            <button class="option-btn">D</button>
         </div>
-        <div class="options" id="optionsContainer"></div>
-        <div class="feedback" id="feedbackMsg"></div>
-        <button class="next-btn" id="nextBtn">➡ Câu tiếp theo</button>
-        <button class="next-btn restart-btn" id="restartBtn">🔄 Chơi lại</button>
     </div>
-
-    <div id="resultPanel" class="result hide">
-        <h2>🎉 Kết thúc!</h2>
-        <p id="finalScoreMsg"></p>
-        <button class="next-btn restart-btn" id="restartResultBtn">🔄 Học lại</button>
+    <div class="feedback-area">
+        <div class="message" id="feedbackMsg">✨ Chọn đáp án đúng nhé!</div>
+        <button class="next-btn" id="nextBtn">▶ Câu tiếp theo</button>
+        <button class="next-btn reset-btn" id="resetBtn">🔄 Chơi lại</button>
     </div>
-    <footer>📚 Tổng hợp từ vựng Trung - Việt (đủ 30 nguồn)</footer>
+    <div class="score-progress" id="scoreText"></div>
 </div>
 
 <script>
-    // --------------------------------------------------------------
-    // DANH SÁCH TỪ VỰNG ĐẦY ĐỦ (từ 30 nguồn ảnh, không sót)
-    // Mỗi object: { word: "照相机", pinyin: "zhàoxiàngjī", meaning: "máy ảnh" }
-    // --------------------------------------------------------------
+    // ======================= DANH SÁCH TỪ VỰNG (TIẾNG TRUNG - TIẾNG VIỆT) =======================
+    // Lấy từ 25 nguồn bạn cung cấp, bỏ hẳn tiếng anh
     const vocabulary = [
-        // Nguồn 1 (IMG_0141)
-        { word: "照相机", pinyin: "zhàoxiàngjī", meaning: "máy ảnh" },
-        { word: "兼职", pinyin: "jiānzhí", meaning: "làm bán thời gian; việc làm thêm" },
-        { word: "赚", pinyin: "zhuàn", meaning: "kiếm (tiền)" },
-        { word: "健身", pinyin: "jiànshēn", meaning: "tập thể thao, tập gym" },
-        { word: "估计", pinyin: "gūjì", meaning: "ước tính, ước chừng" },
-        { word: "提醒", pinyin: "tíxǐng", meaning: "nhắc nhở" },
-        { word: "冷静", pinyin: "lěngjìng", meaning: "bình tĩnh" },
-        { word: "生活费", pinyin: "shēnghuófèi", meaning: "sinh hoạt phí" },
-        { word: "费", pinyin: "fèi", meaning: "phí, chi phí" },
-        { word: "账", pinyin: "zhàng", meaning: "sổ tài chính, sổ kế toán" },
-        { word: "支出", pinyin: "zhīchū", meaning: "khoản chi" },
-        { word: "整理", pinyin: "zhěnglǐ", meaning: "chỉnh lý, sắp xếp" },
-        { word: "从来", pinyin: "cónglái", meaning: "trước giờ, từ trước đến nay, luôn" },
-        { word: "零钱", pinyin: "língqián", meaning: "tiền lẻ" },
-        { word: "免费", pinyin: "miǎnfèi", meaning: "miễn phí" },
-        { word: "养成", pinyin: "yǎngchéng", meaning: "hình thành, nuôi dưỡng thành (thói quen)" },
-        { word: "乱", pinyin: "luàn", meaning: "loạn xạ, lung tung" },
-        // Nguồn 2 (IMG_0142)
-        { word: "怎样", pinyin: "zěnyàng", meaning: "thế nào" },
-        { word: "避免", pinyin: "bìmiǎn", meaning: "tránh, tránh khỏi" },
-        { word: "列", pinyin: "liè", meaning: "liệt kê" },
-        { word: "清单", pinyin: "qīngdān", meaning: "danh sách" },
-        { word: "好处", pinyin: "hǎochù", meaning: "chỗ tốt, lợi ích" },
-        { word: "冲动", pinyin: "chōngdòng", meaning: "nông nổi, tùy hứng" },
-        { word: "消费", pinyin: "xiāofèi", meaning: "tiêu dùng, tiêu tiền" },
-        { word: "另", pinyin: "lìng", meaning: "ngoài, khác" },
-        { word: "管理", pinyin: "guǎnlǐ", meaning: "quản lý" },
-        { word: "效率", pinyin: "xiàolǜ", meaning: "hiệu suất, năng suất" },
-        { word: "关注", pinyin: "guānzhù", meaning: "theo dõi, để ý" },
-        { word: "规定", pinyin: "guīdìng", meaning: "quy định" },
-        { word: "秒", pinyin: "miǎo", meaning: "giây (đơn vị thời gian)" },
-        { word: "一空", pinyin: "yīkōng", meaning: "trống trơn, hết sạch" },
-        { word: "空", pinyin: "kōng", meaning: "trống, rỗng" },
-        { word: "熟悉", pinyin: "shúxī", meaning: "quen thuộc, làm quen" },
-        { word: "当地", pinyin: "dāngdì", meaning: "địa phương, vùng đó" },
-        { word: "快速", pinyin: "kuàisù", meaning: "mau chóng" },
-        { word: "适应", pinyin: "shìyìng", meaning: "thích ứng" },
-        { word: "必要", pinyin: "bìyào", meaning: "cần thiết, tất yếu" },
-        { word: "理性", pinyin: "lǐxìng", meaning: "lý tính" },
-        { word: "者", pinyin: "zhě", meaning: "người, nhà (nhà văn, nhà báo...)" },
-        // Nguồn 3 (IMG_0143)
-        { word: "快递", pinyin: "kuàidì", meaning: "chuyển phát nhanh" },
-        { word: "号码", pinyin: "hàomǎ", meaning: "số hiệu, mã số" },
-        { word: "使用", pinyin: "shǐyòng", meaning: "sử dụng, dùng" },
-        { word: "员", pinyin: "yuán", meaning: "nhân viên, người tham gia" },
-        { word: "国际", pinyin: "guójì", meaning: "quốc tế" },
-        { word: "收", pinyin: "shōu", meaning: "nhận" },
-        { word: "稍", pinyin: "shāo", meaning: "hơi, một chút" },
-        { word: "女士", pinyin: "nǚshì", meaning: "quý cô, quý bà" },
-        { word: "尽快", pinyin: "jǐnkuài", meaning: "nhanh nhất có thể" },
-        { word: "文件", pinyin: "wénjiàn", meaning: "văn kiện, tài liệu" },
-        { word: "安排", pinyin: "ānpái", meaning: "sắp xếp" },
-        // Nguồn 4 (IMG_0144)
-        { word: "满足", pinyin: "mǎnzú", meaning: "thỏa mãn, đáp ứng" },
-        { word: "急", pinyin: "jí", meaning: "gấp, khẩn cấp" },
-        { word: "服务", pinyin: "fúwù", meaning: "phục vụ" },
-        { word: "友好", pinyin: "yǒuhǎo", meaning: "thân thiện" },
-        { word: "缺少", pinyin: "quēshǎo", meaning: "thiếu" },
-        { word: "意见", pinyin: "yìjiàn", meaning: "ý kiến" },
-        { word: "细心", pinyin: "xìxīn", meaning: "cẩn thận" },
-        { word: "准确", pinyin: "zhǔnquè", meaning: "chính xác" },
-        { word: "地址", pinyin: "dìzhǐ", meaning: "địa chỉ" },
-        { word: "柜", pinyin: "guì", meaning: "tủ" },
-        { word: "提供", pinyin: "tígōng", meaning: "cung cấp" },
-        { word: "轻松", pinyin: "qīngsōng", meaning: "nhẹ nhàng" },
-        // Nguồn 5 (IMG_0145)
-        { word: "密码", pinyin: "mìmǎ", meaning: "mật khẩu, mật mã" },
-        { word: "设置", pinyin: "shèzhì", meaning: "thiết lập, xây dựng" },
-        { word: "下面", pinyin: "xiàmiàn", meaning: "bên dưới" },
-        { word: "对话", pinyin: "duìhuà", meaning: "đối thoại" },
-        { word: "业务", pinyin: "yèwù", meaning: "dịch vụ, nghiệp vụ" },
-        { word: "自动", pinyin: "zìdòng", meaning: "tự động" },
-        { word: "存", pinyin: "cún", meaning: "gửi, giữ" },
-        { word: "取款机", pinyin: "qǔkuǎnjī", meaning: "máy ATM" },
-        { word: "柜台", pinyin: "guìtái", meaning: "quầy" },
-        { word: "重新", pinyin: "chóngxīn", meaning: "lại, làm lại từ đầu" },
-        { word: "证件", pinyin: "zhèngjiàn", meaning: "giấy tờ chứng minh" },
-        { word: "交", pinyin: "jiāo", meaning: "giao, đưa" },
-        { word: "相同", pinyin: "xiāngtóng", meaning: "giống nhau" },
-        { word: "输入", pinyin: "shūrù", meaning: "nhập liệu, gõ chữ" },
-        { word: "遍", pinyin: "biàn", meaning: "lần" },
-        { word: "错误", pinyin: "cuòwù", meaning: "sai, sai lầm" },
-        { word: "故意", pinyin: "gùyì", meaning: "cố ý, cố tình" },
-        { word: "脑子", pinyin: "nǎozi", meaning: "bộ não, đầu óc" },
-        { word: "恐怕", pinyin: "kǒngpà", meaning: "sợ rằng, e rằng" },
-        { word: "幽默", pinyin: "yōumò", meaning: "hài hước, hóm hỉnh" },
-        // Nguồn 6 (IMG_0146)
-        { word: "长度", pinyin: "chángdù", meaning: "độ dài, chiều dài" },
-        { word: "猜", pinyin: "cāi", meaning: "đoán" },
-        { word: "字母", pinyin: "zìmǔ", meaning: "chữ cái, mẫu tự" },
-        { word: "或", pinyin: "huò", meaning: "hoặc" },
-        { word: "符号", pinyin: "fúhào", meaning: "dấu, ký hiệu" },
-        { word: "组成", pinyin: "zǔchéng", meaning: "hợp thành, tổ hợp thành" },
-        { word: "选取", pinyin: "xuǎnqǔ", meaning: "lựa chọn" },
-        { word: "组合", pinyin: "zǔhé", meaning: "kết hợp, tổ hợp" },
-        { word: "方式", pinyin: "fāngshì", meaning: "phương thức, cách thức" },
-        { word: "否则", pinyin: "fǒuzé", meaning: "nếu không thì" },
-        { word: "纸", pinyin: "zhǐ", meaning: "giấy" },
-        { word: "信封", pinyin: "xìnfēng", meaning: "bao thư, phong bì" },
-        { word: "藏", pinyin: "cáng", meaning: "giấu, cất" },
-        // Nguồn 7 (IMG_0147)
-        { word: "活泼", pinyin: "huópō", meaning: "hoạt bát" },
-        { word: "通过", pinyin: "tōngguò", meaning: "thông qua, vượt qua" },
-        { word: "口语", pinyin: "kǒuyǔ", meaning: "khẩu ngữ, văn nói" },
-        { word: "基础", pinyin: "jīchǔ", meaning: "cơ sở, nền tảng" },
-        { word: "流利", pinyin: "liúlì", meaning: "lưu loát, trôi chảy" },
-        { word: "总结", pinyin: "zǒngjié", meaning: "tổng kết, tóm tắt" },
-        { word: "经历", pinyin: "jīnglì", meaning: "kinh nghiệm" },
-        { word: "自我", pinyin: "zìwǒ", meaning: "bản thân, tự mình" },
-        { word: "对方", pinyin: "duìfāng", meaning: "đối phương" },
-        { word: "举", pinyin: "jǔ", meaning: "nêu (ví dụ)" },
-        { word: "例子", pinyin: "lìzi", meaning: "ví dụ" },
-        { word: "加班", pinyin: "jiābān", meaning: "tăng ca, làm thêm giờ" },
-        // Nguồn 8 (IMG_0148)
-        { word: "招聘", pinyin: "zhāopìn", meaning: "tuyển dụng" },
-        { word: "员工", pinyin: "yuángōng", meaning: "nhân viên" },
-        { word: "面对面", pinyin: "miànduìmiàn", meaning: "mặt đối mặt" },
-        { word: "克服", pinyin: "kèfú", meaning: "khắc phục" },
-        { word: "情绪", pinyin: "qíngxù", meaning: "tâm trạng" },
-        { word: "真正", pinyin: "zhēnzhèng", meaning: "chân chính, thật sự" },
-        { word: "因此", pinyin: "yīncǐ", meaning: "vì thế, do đó" },
-        { word: "甚至", pinyin: "shènzhì", meaning: "thậm chí" },
-        { word: "成败", pinyin: "chéngbài", meaning: "thành bại" },
-        { word: "关键", pinyin: "guānjiàn", meaning: "mấu chốt" },
-        { word: "随便", pinyin: "suíbiàn", meaning: "tùy tiện" },
-        { word: "突出", pinyin: "tūchū", meaning: "làm nổi bật" },
-        { word: "特点", pinyin: "tèdiǎn", meaning: "đặc điểm" },
-        { word: "知识", pinyin: "zhīshi", meaning: "kiến thức" },
-        { word: "在乎", pinyin: "zàihu", meaning: "để ý" },
-        { word: "简单", pinyin: "jiǎndān", meaning: "đơn giản" },
-        { word: "便于", pinyin: "biànyú", meaning: "tiện cho" },
-        { word: "充满", pinyin: "chōngmǎn", meaning: "tràn đầy" },
-        { word: "自信", pinyin: "zìxìn", meaning: "tự tin" },
-        { word: "愿意", pinyin: "yuànyì", meaning: "bằng lòng, nguyện ý" },
-        { word: "信心", pinyin: "xìnxīn", meaning: "lòng tin" },
-        { word: "放慢", pinyin: "fàngmàn", meaning: "thả chậm" },
-        { word: "思考", pinyin: "sīkǎo", meaning: "suy nghĩ" },
-        { word: "更加", pinyin: "gèngjiā", meaning: "càng thêm" },
-        // Nguồn 9 (IMG_0149)
-        { word: "全身", pinyin: "quánshēn", meaning: "toàn thân" },
-        { word: "发抖", pinyin: "fādǒu", meaning: "run rẩy" },
-        { word: "出汗", pinyin: "chūhàn", meaning: "ra mồ hôi" },
-        { word: "全面", pinyin: "quánmiàn", meaning: "toàn diện" },
-        { word: "诊断", pinyin: "zhěnduàn", meaning: "chẩn đoán" },
-        { word: "心理", pinyin: "xīnlǐ", meaning: "tâm lý" },
-        { word: "焦虑症", pinyin: "jiāolǜzhèng", meaning: "chứng rối loạn lo âu" },
-        { word: "尽管", pinyin: "jǐnguǎn", meaning: "dù, cho dù" },
-        { word: "调节", pinyin: "tiáojié", meaning: "điều tiết, điều chỉnh" },
-        { word: "受不了", pinyin: "shòubùliǎo", meaning: "chịu không nổi" },
-        { word: "及时", pinyin: "jíshí", meaning: "kịp thời" },
-        { word: "寻求", pinyin: "xúnqiú", meaning: "tìm kiếm" },
-        { word: "聊", pinyin: "liáo", meaning: "nói chuyện" },
-        { word: "笑话", pinyin: "xiàohua", meaning: "chuyện cười" },
-        // Nguồn 10 (IMG_0150)
-        { word: "是否", pinyin: "shìfǒu", meaning: "có phải hay không" },
-        { word: "收拾", pinyin: "shōushi", meaning: "dọn dẹp" },
-        { word: "感到", pinyin: "gǎndào", meaning: "cảm thấy" },
-        { word: "鼓励", pinyin: "gǔlì", meaning: "động viên, khích lệ" },
-        { word: "拖延", pinyin: "tuōyán", meaning: "trì hoãn" },
-        { word: "改变", pinyin: "gǎibiàn", meaning: "thay đổi" },
-        { word: "关掉", pinyin: "guāndiào", meaning: "tắt đi" },
-        { word: "网络", pinyin: "wǎngluò", meaning: "mạng internet" },
-        { word: "打扰", pinyin: "dǎrǎo", meaning: "làm phiền" },
-        { word: "制订", pinyin: "zhìdìng", meaning: "định ra, đặt ra" },
-        { word: "患者", pinyin: "huànzhě", meaning: "người bệnh" },
-        // Nguồn 11 (IMG_0151)
-        { word: "实际", pinyin: "shíjì", meaning: "thực tế" },
-        { word: "当天", pinyin: "dàngtiān", meaning: "ngay hôm đó" },
-        { word: "奖励", pinyin: "jiǎnglì", meaning: "thưởng" },
-        { word: "许多", pinyin: "xǔduō", meaning: "rất nhiều" },
-        { word: "非…不可", pinyin: "fēi...bùkě", meaning: "bắt buộc, phải" },
-        { word: "面对", pinyin: "miànduì", meaning: "đối mặt" },
-        // Nguồn 12 (IMG_0152)
-        { word: "叶子", pinyin: "yèzi", meaning: "lá" },
-        { word: "到处", pinyin: "dàochù", meaning: "khắp nơi" },
-        { word: "山区", pinyin: "shānqū", meaning: "vùng núi" },
-        { word: "秋天", pinyin: "qiūtiān", meaning: "mùa thu" },
-        { word: "茶馆", pinyin: "cháguǎn", meaning: "quán trà" },
-        { word: "京剧", pinyin: "jīngjù", meaning: "Kinh kịch" },
-        { word: "演出", pinyin: "yǎnchū", meaning: "biểu diễn" },
-        { word: "艺术", pinyin: "yìshù", meaning: "nghệ thuật" },
-        { word: "烤鸭", pinyin: "kǎoyā", meaning: "vịt quay" },
-        { word: "有趣", pinyin: "yǒuqù", meaning: "thú vị" },
-        { word: "卫生间", pinyin: "wèishēngjiān", meaning: "nhà vệ sinh" },
-        { word: "赶紧", pinyin: "gǎnjǐn", meaning: "vội vàng" },
-        { word: "理解", pinyin: "lǐjiě", meaning: "hiểu, lý giải" },
-        { word: "误会", pinyin: "wùhuì", meaning: "hiểu lầm" },
-        { word: "笨", pinyin: "bèn", meaning: "ngốc, khờ" },
-        // Nguồn 13 (IMG_0153)
-        { word: "幅", pinyin: "fú", meaning: "bức (lượng từ)" },
-        { word: "写法", pinyin: "xiěfǎ", meaning: "cách viết" },
-        { word: "密切", pinyin: "mìqiè", meaning: "mật thiết" },
-        { word: "例如", pinyin: "lìrú", meaning: "ví dụ" },
-        { word: "棵", pinyin: "kē", meaning: "cây (lượng từ)" },
-        { word: "根", pinyin: "gēn", meaning: "gốc, rễ" },
-        { word: "主要", pinyin: "zhǔyào", meaning: "chủ yếu" },
-        { word: "悠久", pinyin: "yōujiǔ", meaning: "lâu đời" },
-        { word: "记录", pinyin: "jìlù", meaning: "ghi chép" },
-        { word: "推", pinyin: "tuī", meaning: "đẩy" },
-        { word: "窗户", pinyin: "chuānghu", meaning: "cửa sổ" },
-        // Nguồn 14 (IMG_0154)
-        { word: "科技", pinyin: "kējì", meaning: "khoa học kỹ thuật" },
-        { word: "杂志", pinyin: "zázhì", meaning: "tạp chí" },
-        { word: "演员", pinyin: "yǎnyuán", meaning: "diễn viên" },
-        { word: "演", pinyin: "yǎn", meaning: "diễn" },
-        { word: "功夫", pinyin: "gōngfu", meaning: "võ thuật" },
-        { word: "勇敢", pinyin: "yǒnggǎn", meaning: "dũng cảm" },
-        { word: "可惜", pinyin: "kěxī", meaning: "đáng tiếc" },
-        { word: "电影院", pinyin: "diànyǐngyuàn", meaning: "rạp chiếu phim" },
-        { word: "未来", pinyin: "wèilái", meaning: "tương lai" },
-        { word: "机器人", pinyin: "jīqìrén", meaning: "robot" },
-        { word: "发达", pinyin: "fādá", meaning: "phát triển" },
-        { word: "驾驶", pinyin: "jiàshǐ", meaning: "lái xe" },
-        { word: "难道", pinyin: "nándào", meaning: "lẽ nào" },
-        { word: "眼前", pinyin: "yǎnqián", meaning: "trước mắt" },
-        // Nguồn 15 (IMG_0155)
-        { word: "进步", pinyin: "jìnbù", meaning: "tiến bộ" },
-        { word: "付", pinyin: "fù", meaning: "trả tiền" },
-        { word: "款", pinyin: "kuǎn", meaning: "khoản tiền" },
-        { word: "餐厅", pinyin: "cāntīng", meaning: "nhà hàng" },
-        { word: "词", pinyin: "cí", meaning: "từ" },
-        { word: "词典", pinyin: "cídiǎn", meaning: "từ điển" },
-        { word: "总之", pinyin: "zǒngzhī", meaning: "tóm lại" },
-        { word: "组织", pinyin: "zǔzhī", meaning: "tổ chức" },
-        { word: "高速公路", pinyin: "gāosùgōnglù", meaning: "đường cao tốc" },
-        { word: "车速", pinyin: "chēsù", meaning: "tốc độ xe" },
-        { word: "车窗", pinyin: "chēchuāng", meaning: "cửa sổ xe" },
-        { word: "片", pinyin: "piàn", meaning: "vùng, khoảnh" },
-        { word: "阳光", pinyin: "yángguāng", meaning: "ánh nắng" },
-        { word: "飞", pinyin: "fēi", meaning: "bay" },
-        { word: "整", pinyin: "zhěng", meaning: "cả, trọn" },
-        { word: "美景", pinyin: "měijǐng", meaning: "cảnh đẹp" },
-        { word: "旅程", pinyin: "lǚchéng", meaning: "hành trình" },
-        { word: "迎接", pinyin: "yíngjiē", meaning: "đón tiếp" },
-        { word: "夸", pinyin: "kuā", meaning: "khen" },
-        { word: "苦", pinyin: "kǔ", meaning: "đắng" },
-        // Nguồn 16 (IMG_0156)
-        { word: "理发", pinyin: "lǐfà", meaning: "cắt tóc" },
-        { word: "羡慕", pinyin: "xiànmù", meaning: "hâm mộ" },
-        { word: "聚会", pinyin: "jùhuì", meaning: "buổi họp mặt" },
-        { word: "打扮", pinyin: "dǎban", meaning: "trang điểm" },
-        { word: "车站", pinyin: "chēzhàn", meaning: "bến xe" },
-        { word: "市", pinyin: "shì", meaning: "thành phố" },
-        { word: "邮局", pinyin: "yóujú", meaning: "bưu điện" },
-        { word: "方向", pinyin: "fāngxiàng", meaning: "phương hướng" },
-        { word: "一旦", pinyin: "yídàn", meaning: "một khi" },
-        { word: "迷路", pinyin: "mílù", meaning: "lạc đường" },
-        { word: "开心", pinyin: "kāixīn", meaning: "vui vẻ" },
-        { word: "街", pinyin: "jiē", meaning: "phố" },
-        { word: "友谊", pinyin: "yǒuyì", meaning: "tình bạn" },
-        { word: "淡", pinyin: "dàn", meaning: "nhạt nhòa" },
-        { word: "动力", pinyin: "dònglì", meaning: "động lực" },
-        { word: "民族", pinyin: "mínzú", meaning: "dân tộc" },
-        { word: "国籍", pinyin: "guójí", meaning: "quốc tịch" },
-        // Nguồn 17 (IMG_0157)
-        { word: "父母", pinyin: "fùmǔ", meaning: "cha mẹ" },
-        { word: "电子邮箱", pinyin: "diànzǐ yóuxiāng", meaning: "hộp thư điện tử" },
-        { word: "相处", pinyin: "xiāngchǔ", meaning: "sống chung" },
-        { word: "建立", pinyin: "jiànlì", meaning: "xây dựng" },
-        { word: "相反", pinyin: "xiāngfǎn", meaning: "ngược lại" },
-        { word: "显示", pinyin: "xiǎnshì", meaning: "hiển thị" },
-        { word: "信息", pinyin: "xìnxī", meaning: "thông tin" },
-        { word: "增长", pinyin: "zēngzhǎng", meaning: "tăng trưởng" },
-        { word: "缺点", pinyin: "quēdiǎn", meaning: "khuyết điểm" },
-        { word: "从而", pinyin: "cóng'ér", meaning: "từ đó" },
-        { word: "钥匙", pinyin: "yàoshi", meaning: "chìa khóa" },
-        // Nguồn 18 (IMG_0158)
-        { word: "海洋", pinyin: "hǎiyáng", meaning: "biển cả" },
-        { word: "讨论", pinyin: "tǎolùn", meaning: "thảo luận" },
-        { word: "大约", pinyin: "dàyuē", meaning: "khoảng" },
-        { word: "目前", pinyin: "mùqián", meaning: "hiện giờ" },
-        { word: "怕", pinyin: "pà", meaning: "sợ" },
-        { word: "寒冷", pinyin: "hánlěng", meaning: "lạnh lẽo" },
-        { word: "冰灯", pinyin: "bīngdēng", meaning: "băng đăng" },
-        { word: "夜里", pinyin: "yèlǐ", meaning: "ban đêm" },
-        { word: "底", pinyin: "dǐ", meaning: "cuối" },
-        // Nguồn 19 (IMG_0159)
-        { word: "金色", pinyin: "jīnsè", meaning: "màu vàng kim" },
-        { word: "沙滩", pinyin: "shātān", meaning: "bãi cát" },
-        { word: "人类", pinyin: "rénlèi", meaning: "loài người" },
-        { word: "深", pinyin: "shēn", meaning: "sâu" },
-        { word: "到底", pinyin: "dàodǐ", meaning: "rốt cuộc" },
-        { word: "普通", pinyin: "pǔtōng", meaning: "bình thường" },
-        { word: "资源", pinyin: "zīyuán", meaning: "tài nguyên" },
-        { word: "盐", pinyin: "yán", meaning: "muối" },
-        { word: "来自", pinyin: "láizì", meaning: "đến từ" },
-        { word: "生物", pinyin: "shēngwù", meaning: "sinh vật" },
-        { word: "种类", pinyin: "zhǒnglèi", meaning: "chủng loại" },
-        { word: "倍", pinyin: "bèi", meaning: "gấp (mấy lần)" },
-        { word: "地球", pinyin: "dìqiú", meaning: "trái đất" },
-        { word: "稍微", pinyin: "shāowēi", meaning: "một chút" },
-        { word: "作用", pinyin: "zuòyòng", meaning: "tác dụng" },
-        { word: "所有", pinyin: "suǒyǒu", meaning: "tất cả" },
-        { word: "秘密", pinyin: "mìmì", meaning: "bí mật" },
-        // Nguồn 20 (IMG_0160)
-        { word: "矿泉水", pinyin: "kuàngquánshuǐ", meaning: "nước khoáng" },
-        { word: "毛巾", pinyin: "máojīn", meaning: "khăn lông" },
-        { word: "擦", pinyin: "cā", meaning: "lau" },
-        { word: "湿", pinyin: "shī", meaning: "ướt" },
-        { word: "皮肤", pinyin: "pífū", meaning: "da" },
-        { word: "减肥", pinyin: "jiǎnféi", meaning: "giảm cân" },
-        { word: "体重", pinyin: "tǐzhòng", meaning: "cân nặng" },
-        { word: "轻", pinyin: "qīng", meaning: "nhẹ" },
-        { word: "标准", pinyin: "biāozhǔn", meaning: "tiêu chuẩn" },
-        { word: "胳膊", pinyin: "gēbo", meaning: "cánh tay" },
-        { word: "抬", pinyin: "tái", meaning: "giơ lên" },
-        { word: "过度", pinyin: "guòdù", meaning: "quá mức" },
-        { word: "敲", pinyin: "qiāo", meaning: "gõ" },
-        { word: "拉", pinyin: "lā", meaning: "kéo" },
-        { word: "肌肉", pinyin: "jīròu", meaning: "cơ bắp" },
-        { word: "开玩笑", pinyin: "kāi wánxiào", meaning: "giỡn, đùa" },
-        { word: "不敢", pinyin: "bùgǎn", meaning: "không dám" },
-        // Nguồn 21 (IMG_0161)
-        { word: "掌握", pinyin: "zhǎngwò", meaning: "nắm vững" },
-        { word: "正确", pinyin: "zhèngquè", meaning: "chính xác" },
-        { word: "方法", pinyin: "fāngfǎ", meaning: "phương pháp" },
-        { word: "强度", pinyin: "qiángdù", meaning: "cường độ" },
-        { word: "进度", pinyin: "jìndù", meaning: "tiến độ" },
-        { word: "一味", pinyin: "yíwèi", meaning: "một mực" },
-        { word: "加快", pinyin: "jiākuài", meaning: "tăng nhanh" },
-        { word: "受伤", pinyin: "shòushāng", meaning: "bị thương" },
-        { word: "合理", pinyin: "hélǐ", meaning: "hợp lý" },
-        { word: "同时", pinyin: "tóngshí", meaning: "đồng thời" },
-        { word: "于是", pinyin: "yúshì", meaning: "thế là" },
-        { word: "顿", pinyin: "dùn", meaning: "bữa, trận" },
-        { word: "降低", pinyin: "jiàngdī", meaning: "giảm xuống" },
-        { word: "瑜伽", pinyin: "yújiā", meaning: "yoga" },
-        { word: "舒适", pinyin: "shūshì", meaning: "thoải mái" },
-        { word: "篇", pinyin: "piān", meaning: "bài (lượng từ)" },
-        { word: "文章", pinyin: "wénzhāng", meaning: "bài viết" },
-        { word: "无数", pinyin: "wúshù", meaning: "vô số" },
-        // Nguồn 22 (IMG_0162)
-        { word: "包子", pinyin: "bāozi", meaning: "bánh bao" },
-        { word: "遇", pinyin: "yù", meaning: "gặp" },
-        { word: "散步", pinyin: "sànbù", meaning: "đi dạo" },
-        { word: "养", pinyin: "yǎng", meaning: "nuôi" },
-        { word: "律师", pinyin: "lǜshī", meaning: "luật sư" },
-        { word: "儿媳妇", pinyin: "érxífù", meaning: "con dâu" },
-        { word: "护士", pinyin: "hùshi", meaning: "y tá" },
-        { word: "孙子", pinyin: "sūnzi", meaning: "cháu trai" },
-        { word: "打扫", pinyin: "dǎsǎo", meaning: "quét dọn" },
-        { word: "洗澡", pinyin: "xǐzǎo", meaning: "tắm" },
-        { word: "打招呼", pinyin: "dǎ zhāohu", meaning: "chào hỏi" },
-        { word: "袜子", pinyin: "wàzi", meaning: "tất" },
-        { word: "表扬", pinyin: "biǎoyáng", meaning: "khen ngợi" },
-        { word: "得意", pinyin: "déyì", meaning: "đắc ý" },
-        { word: "批评", pinyin: "pīpíng", meaning: "phê bình" },
-        { word: "脏", pinyin: "zāng", meaning: "bẩn" },
-        { word: "卫生", pinyin: "wèishēng", meaning: "vệ sinh" },
-        { word: "厕所", pinyin: "cèsuǒ", meaning: "nhà vệ sinh" },
-        { word: "大小便", pinyin: "dàxiǎobiàn", meaning: "đại tiểu tiện" },
-        { word: "垃圾桶", pinyin: "lājītǒng", meaning: "thùng rác" },
-        { word: "那样", pinyin: "nàyàng", meaning: "như vậy" },
-        // Nguồn 23 (IMG_0163)
-        { word: "具备", pinyin: "jùbèi", meaning: "sở hữu" },
-        { word: "反对", pinyin: "fǎnduì", meaning: "phản đối" },
-        { word: "愉快", pinyin: "yúkuài", meaning: "vui vẻ" },
-        { word: "也许", pinyin: "yěxǔ", meaning: "có lẽ" },
-        { word: "陪伴", pinyin: "péibàn", meaning: "bầu bạn" },
-        { word: "负责", pinyin: "fùzé", meaning: "phụ trách" },
-        { word: "无聊", pinyin: "wúliáo", meaning: "nhàm chán" },
-        { word: "之前", pinyin: "zhīqián", meaning: "trước khi" },
-        // Nguồn 24 (IMG_0164)
-        { word: "朋友圈", pinyin: "péngyouquān", meaning: "WeChat Khoảnh khắc" },
-        { word: "实在", pinyin: "shízài", meaning: "thực sự" },
-        { word: "礼拜天", pinyin: "lǐbàitiān", meaning: "Chủ nhật" },
-        { word: "俩", pinyin: "liǎ", meaning: "hai người" },
-        { word: "兴奋", pinyin: "xīngfèn", meaning: "hào hứng" },
-        { word: "其中", pinyin: "qízhōng", meaning: "trong đó" },
-        { word: "卡片", pinyin: "kǎpiàn", meaning: "thiệp" },
-        { word: "挂", pinyin: "guà", meaning: "treo" },
-        { word: "暖和", pinyin: "nuǎnhuo", meaning: "ấm áp" },
-        { word: "日记", pinyin: "rìjì", meaning: "nhật ký" },
-        { word: "礼拜六", pinyin: "lǐbàiliù", meaning: "thứ Bảy" },
-        // Nguồn 25 (IMG_0165)
-        { word: "动物", pinyin: "dòngwù", meaning: "động vật" },
-        { word: "植物", pinyin: "zhíwù", meaning: "thực vật" },
-        { word: "生命", pinyin: "shēngmìng", meaning: "sự sống" },
-        { word: "人口", pinyin: "rénkǒu", meaning: "dân số" },
-        { word: "现代", pinyin: "xiàndài", meaning: "hiện đại" },
-        { word: "工业", pinyin: "gōngyè", meaning: "công nghiệp" },
-        { word: "暖", pinyin: "nuǎn", meaning: "ấm" },
-        { word: "共同", pinyin: "gòngtóng", meaning: "chung" },
-        { word: "危险", pinyin: "wēixiǎn", meaning: "nguy hiểm" },
-        { word: "性", pinyin: "xìng", meaning: "tính (chất)" },
-        { word: "扔", pinyin: "rēng", meaning: "ném" },
-        { word: "严格", pinyin: "yángé", meaning: "nghiêm ngặt" },
-        { word: "分类", pinyin: "fēnlèi", meaning: "phân loại" },
-        { word: "节约", pinyin: "jiéyuē", meaning: "tiết kiệm" },
-        { word: "塑料袋", pinyin: "sùliàodài", meaning: "túi nilon" },
-        { word: "打印", pinyin: "dǎyìn", meaning: "in" },
-        { word: "复印", pinyin: "fùyìn", meaning: "photocopy" },
-        { word: "母亲", pinyin: "mǔqīn", meaning: "mẹ" },
-        { word: "法律", pinyin: "fǎlǜ", meaning: "pháp luật" },
-        { word: "教授", pinyin: "jiàoshòu", meaning: "giáo sư" },
-        { word: "经济学", pinyin: "jīngjìxué", meaning: "kinh tế học" },
-        { word: "刚刚", pinyin: "gānggāng", meaning: "vừa mới" },
-        { word: "级", pinyin: "jí", meaning: "cấp, bậc" },
-        { word: "公布", pinyin: "gōngbù", meaning: "công bố" },
-        { word: "至少", pinyin: "zhìshǎo", meaning: "ít nhất" },
-        { word: "详细", pinyin: "xiángxì", meaning: "tỉ mỉ" },
-        { word: "步骤", pinyin: "bùzhòu", meaning: "bước" },
-        { word: "类", pinyin: "lèi", meaning: "loại" },
-        { word: "项目", pinyin: "xiàngmù", meaning: "hạng mục" },
-        { word: "仔细", pinyin: "zǐxì", meaning: "cẩn thận" },
-        { word: "阅读", pinyin: "yuèdú", meaning: "đọc" },
-        // Nguồn 27 (IMG_0167)
-        { word: "预习", pinyin: "yùxí", meaning: "chuẩn bị bài trước" },
-        { word: "内容", pinyin: "nèiróng", meaning: "nội dung" },
-        { word: "普通话", pinyin: "pǔtōnghuà", meaning: "tiếng Phổ thông" },
-        { word: "地道", pinyin: "dìdao", meaning: "chính hiệu" },
-        { word: "取得", pinyin: "qǔdé", meaning: "lấy được" },
-        { word: "骄傲", pinyin: "jiāo'ào", meaning: "tự hào" },
-        { word: "目标", pinyin: "mùbiāo", meaning: "mục tiêu" },
-        { word: "电视剧", pinyin: "diànshìjù", meaning: "phim truyền hình" },
-        { word: "报纸", pinyin: "bàozhǐ", meaning: "báo" },
-        { word: "景点", pinyin: "jǐngdiǎn", meaning: "điểm tham quan" },
-        { word: "丰富多彩", pinyin: "fēngfù duōcǎi", meaning: "phong phú đa dạng" },
-        { word: "游览", pinyin: "yóulǎn", meaning: "tham quan" },
-        { word: "茶叶", pinyin: "cháyè", meaning: "trà" },
-        { word: "船", pinyin: "chuán", meaning: "thuyền" },
-        { word: "河", pinyin: "hé", meaning: "sông" },
-        // Nguồn 28 (IMG_0168)
-        { word: "饼干", pinyin: "bǐnggān", meaning: "bánh quy" },
-        { word: "肚子", pinyin: "dùzi", meaning: "bụng" },
-        { word: "占线", pinyin: "zhànxiàn", meaning: "bận máy" },
-        { word: "通", pinyin: "tōng", meaning: "thông" },
-        { word: "约会", pinyin: "yuēhuì", meaning: "cuộc hẹn" },
-        { word: "加油站", pinyin: "jiāyóuzhàn", meaning: "cây xăng" },
-        { word: "羽绒服", pinyin: "yǔróngfú", meaning: "áo phao" },
-        { word: "脱", pinyin: "tuō", meaning: "cởi" },
-        { word: "沙发", pinyin: "shāfā", meaning: "sofa" },
-        { word: "外边", pinyin: "wàibian", meaning: "bên ngoài" },
-        { word: "果汁", pinyin: "guǒzhī", meaning: "nước trái cây" },
-        { word: "香", pinyin: "xiāng", meaning: "thơm" },
-        { word: "全部", pinyin: "quánbù", meaning: "toàn bộ" },
-        { word: "麻婆豆腐", pinyin: "mápó dòufu", meaning: "đậu hũ Tứ Xuyên" },
-        { word: "辣", pinyin: "là", meaning: "cay" },
-        { word: "西红柿炒鸡蛋", pinyin: "xīhóngshì chǎo jīdàn", meaning: "trứng cà chua" },
-        { word: "京酱肉丝", pinyin: "jīngjiàng ròusī", meaning: "thịt sốt tương" },
-        { word: "咸", pinyin: "xián", meaning: "mặn" },
-        // Nguồn 29 (IMG_0169)
-        { word: "酸辣土豆丝", pinyin: "suānlà tǔdòusī", meaning: "khoai tây xào chua cay" },
-        { word: "色香味俱全", pinyin: "sè xiāng wèi jùquán", meaning: "đủ màu, thơm, vị" },
-        { word: "干杯", pinyin: "gānbēi", meaning: "cạn ly" },
-        // Nguồn 30 (IMG_0170)
-        { word: "民以食为天", pinyin: "mín yǐ shí wéi tiān", meaning: "dân dĩ thực vi thiên" },
-        { word: "食物", pinyin: "shíwù", meaning: "thức ăn" },
-        { word: "面积", pinyin: "miànjī", meaning: "diện tích" },
-        { word: "口味", pinyin: "kǒuwèi", meaning: "khẩu vị" },
-        { word: "糖", pinyin: "táng", meaning: "đường" },
-        { word: "喜爱", pinyin: "xǐ'ài", meaning: "yêu thích" },
-        { word: "至于", pinyin: "zhìyú", meaning: "còn về" },
-        { word: "指", pinyin: "zhǐ", meaning: "chỉ" },
-        { word: "以", pinyin: "yǐ", meaning: "về phía" },
-        { word: "个人", pinyin: "gèrén", meaning: "cá nhân" },
-        { word: "增多", pinyin: "zēngduō", meaning: "tăng thêm" },
-        { word: "特色", pinyin: "tèsè", meaning: "đặc sắc" }
+        { word: "回归", meaning: "Quay trở lại" },
+        { word: "快餐", meaning: "Đồ ăn nhanh" },
+        { word: "表现", meaning: "Thể hiện" },
+        { word: "华裔", meaning: "Người gốc Hoa" },
+        { word: "祖国", meaning: "Tổ quốc" },
+        { word: "想念", meaning: "Nhớ nhung" },
+        { word: "曾经", meaning: "Đã từng" },
+        { word: "厨师", meaning: "Đầu bếp" },
+        { word: "失业", meaning: "Thất nghiệp" },
+        { word: "家庭", meaning: "Gia đình" },
+        { word: "状况", meaning: "Tình trạng" },
+        { word: "唐人街", meaning: "Phố Tàu" },
+        { word: "对于", meaning: "Đối với" },
+        { word: "采购", meaning: "Mua sắm" },
+        { word: "靠", meaning: "Dựa vào" },
+        { word: "同时", meaning: "Đồng thời" },
+        { word: "有利", meaning: "Có lợi" },
+        { word: "以来", meaning: "Kể từ khi" },
+        { word: "生长", meaning: "Lớn lên" },
+        { word: "接触", meaning: "Tiếp xúc" },
+        { word: "组成", meaning: "Thành lập" },
+        { word: "清淡", meaning: "Thanh đạm" },
+        { word: "均衡", meaning: "Cân bằng" },
+        { word: "香蕉人", meaning: "Người quả chuối (Tây hóa)" },
+        { word: "90后", meaning: "Thế hệ 9x" },
+        { word: "消费", meaning: "Tiêu dùng" },
+        { word: "报告", meaning: "Báo cáo" },
+        { word: "某", meaning: "Nào đó" },
+        { word: "发布", meaning: "Công bố" },
+        { word: "方式", meaning: "Phương thức" },
+        { word: "高峰", meaning: "Đỉnh cao / giờ cao điểm" },
+        { word: "目的地", meaning: "Điểm đến" },
+        { word: "频率", meaning: "Tần suất" },
+        { word: "占", meaning: "Chiếm" },
+        { word: "自由行", meaning: "Du lịch tự túc" },
+        { word: "跟团游", meaning: "Du lịch theo đoàn" },
+        { word: "热门", meaning: "Phổ biến" },
+        { word: "特色", meaning: "Đặc sắc" },
+        { word: "客栈", meaning: "Nhà trọ" },
+        { word: "开放", meaning: "Mở cửa" },
+        { word: "平均", meaning: "Trung bình" },
+        { word: "的确", meaning: "Thực sự" },
+        { word: "星座", meaning: "Chòm sao" },
+        { word: "双鱼座", meaning: "Song Ngư" },
+        { word: "摩羯座", meaning: "Ma Kết" },
+        { word: "天蝎座", meaning: "Thiên Yết" },
+        { word: "处女座", meaning: "Xử Nữ" },
+        { word: "职场人", meaning: "Người đi làm" },
+        { word: "夜", meaning: "Đêm" },
+        { word: "专家", meaning: "Chuyên gia" },
+        { word: "适度", meaning: "Điều độ" },
+        { word: "显示", meaning: "Hiển thị" },
+        { word: "应酬", meaning: "Giao lưu tiệc tùng" },
+        { word: "休闲", meaning: "Thư giãn" },
+        { word: "娱乐", meaning: "Giải trí" },
+        { word: "人脉", meaning: "Mạng lưới quan hệ" },
+        { word: "维护", meaning: "Duy trì" },
+        { word: "相关", meaning: "Liên quan" },
+        { word: "享受", meaning: "Tận hưởng" },
+        { word: "酒吧", meaning: "Quán bar" },
+        { word: "健身", meaning: "Tập thể hình" },
+        { word: "相对", meaning: "Tương đối" },
+        { word: "促进", meaning: "Thúc đẩy" },
+        { word: "晚点族", meaning: "Nhóm người thích làm việc muộn" },
+        { word: "盛产", meaning: "Sản xuất nhiều" },
+        { word: "奉献", meaning: "Cống hiến" },
+        { word: "晚婚", meaning: "Kết hôn muộn" },
+        { word: "抚养", meaning: "Nuôi dưỡng" },
+        { word: "成本", meaning: "Chi phí" },
+        { word: "理性", meaning: "Lý tính" },
+        { word: "确定", meaning: "Xác định" },
+        { word: "轻易", meaning: "Dễ dàng" },
+        { word: "恋爱", meaning: "Yêu đương" },
+        { word: "观念", meaning: "Quan niệm" },
+        { word: "心理", meaning: "Tâm lý" },
+        { word: "阶段", meaning: "Giai đoạn" },
+        { word: "绑架", meaning: "Bắt cóc" },
+        { word: "目前", meaning: "Hiện tại" },
+        { word: "必然", meaning: "Tất yếu" },
+        { word: "见解", meaning: "Kiến giải" },
+        { word: "乐意", meaning: "Sẵn lòng" },
+        { word: "依赖", meaning: "Phụ thuộc" },
+        { word: "症", meaning: "Bệnh / hội chứng" },
+        { word: "智能", meaning: "Thông minh" },
+        { word: "微信", meaning: "WeChat" },
+        { word: "打发", meaning: "Giết thời gian" },
+        { word: "时不时", meaning: "Thỉnh thoảng" },
+        { word: "危害", meaning: "Gây hại" },
+        { word: "显而易见", meaning: "Hiển nhiên" },
+        { word: "占用", meaning: "Chiếm dụng" },
+        { word: "采用", meaning: "Áp dụng" },
+        { word: "姿势", meaning: "Tư thế" },
+        { word: "此外", meaning: "Ngoài ra" },
+        { word: "患", meaning: "Mắc bệnh" },
+        { word: "强迫", meaning: "Cưỡng ép" },
+        { word: "坐立不安", meaning: "Đứng ngồi không yên" },
+        { word: "上瘾", meaning: "Nghiện" },
+        { word: "抵御", meaning: "Chống lại" },
+        { word: "诱惑", meaning: "Cám dỗ" },
+        { word: "制订", meaning: "Lập ra" },
+        { word: "踏实", meaning: "Yên tâm" },
+        { word: "治疗", meaning: "Điều trị" },
+        { word: "混合", meaning: "Pha trộn" },
+        { word: "成长", meaning: "Trưởng thành" },
+        { word: "礼节", meaning: "Lễ tiết" },
+        { word: "差异", meaning: "Sự khác biệt" },
+        { word: "摩擦", meaning: "Ma sát / xích mích" },
+        { word: "矛盾", meaning: "Mâu thuẫn" },
+        { word: "在所难免", meaning: "Khó tránh khỏi" },
+        { word: "处理", meaning: "Xử lý" },
+        { word: "因素", meaning: "Nhân tố" },
+        { word: "无微不至", meaning: "Chu đáo hết mực" },
+        { word: "望子成龙", meaning: "Mong con thành rồng" },
+        { word: "心切", meaning: "Nóng lòng" },
+        { word: "个性", meaning: "Cá tính" },
+        { word: "培养", meaning: "Bồi dưỡng" },
+        { word: "独立", meaning: "Độc lập" },
+        { word: "自力更生", meaning: "Tự lực cánh sinh" },
+        { word: "儿媳", meaning: "Con dâu" },
+        { word: "女婿", meaning: "Con rể" },
+        { word: "养老院", meaning: "Viện dưỡng lão" },
+        { word: "保姆", meaning: "Bảo mẫu" },
+        { word: "孝顺", meaning: "Hiếu thảo" },
+        { word: "称呼", meaning: "Xưng hô" },
+        { word: "至于", meaning: "Còn về" },
+        { word: "对方", meaning: "Đối phương" },
+        { word: "大胆", meaning: "Táo bạo" },
+        { word: "长辈", meaning: "Bậc bề trên" },
+        { word: "直升机", meaning: "Trực thăng" },
+        { word: "围绕", meaning: "Xoay quanh" },
+        { word: "盘旋", meaning: "Lượn vòng" },
+        { word: "弱", meaning: "Yếu" },
+        { word: "人格", meaning: "Nhân cách" },
+        { word: "全面", meaning: "Toàn diện" },
+        { word: "自主", meaning: "Tự chủ" },
+        { word: "师范", meaning: "Sư phạm" },
+        { word: "体会", meaning: "Thấu hiểu" },
+        { word: "监视", meaning: "Giám sát" },
+        { word: "干预", meaning: "Can thiệp" },
+        { word: "公平", meaning: "Công bằng" },
+        { word: "在于", meaning: "Nằm ở chỗ" },
+        { word: "急于求成", meaning: "Nôn nóng thành công" },
+        { word: "揠苗助长", meaning: "Dục tốc bất đạt" },
+        { word: "需求", meaning: "Nhu cầu" },
+        { word: "逐渐", meaning: "Dần dần" },
+        { word: "待命", meaning: "Chờ lệnh" },
+        { word: "应急", meaning: "Ứng phó khẩn cấp" },
+        { word: "后备", meaning: "Dự bị" },
+        { word: "电源", meaning: "Nguồn điện" },
+        { word: "人生", meaning: "Cuộc đời" },
+        { word: "成熟", meaning: "Trưởng thành (chín chắn)" },
+        { word: "高铁", meaning: "Đường sắt cao tốc" },
+        { word: "外交", meaning: "Ngoại giao" },
+        { word: "名片", meaning: "Danh thiếp" },
+        { word: "总理", meaning: "Thủ tướng" },
+        { word: "推广", meaning: "Quảng bá" },
+        { word: "亮点", meaning: "Điểm sáng" },
+        { word: "先进", meaning: "Tiên tiến" },
+        { word: "可靠", meaning: "Đáng tin cậy" },
+        { word: "优势", meaning: "Ưu thế" },
+        { word: "演讲", meaning: "Diễn thuyết" },
+        { word: "拥有", meaning: "Sở hữu" },
+        { word: "建设", meaning: "Xây dựng" },
+        { word: "设施", meaning: "Thiết bị" },
+        { word: "繁荣", meaning: "Phồn vinh" },
+        { word: "潜力", meaning: "Tiềm năng" },
+        { word: "体现", meaning: "Thể hiện" },
+        { word: "战略", meaning: "Chiến lược" },
+        { word: "塑造", meaning: "Nhào nặn" },
+        { word: "转换", meaning: "Chuyển đổi" },
+        { word: "推动", meaning: "Thúc đẩy" },
+        { word: "领域", meaning: "Lĩnh vực" },
+        { word: "贸易", meaning: "Thương mại" },
+        { word: "人员", meaning: "Nhân viên" },
+        { word: "转型", meaning: "Chuyển đổi mô hình" },
+        { word: "改革开放", meaning: "Cải cách mở cửa" },
+        { word: "制造", meaning: "Chế tạo" },
+        { word: "成就", meaning: "Thành tựu" },
+        { word: "性价比", meaning: "Tỷ lệ hiệu năng trên giá" },
+        { word: "和平", meaning: "Hòa bình" },
+        { word: "体谅", meaning: "Thông cảm" },
+        { word: "折射", meaning: "Phản chiếu" },
+        { word: "商业", meaning: "Thương mại" },
+        { word: "促销", meaning: "Khuyến mãi" },
+        { word: "折扣", meaning: "Giảm giá" },
+        { word: "日期", meaning: "Ngày tháng" },
+        { word: "逢", meaning: "Gặp / mỗi lần" },
+        { word: "数据", meaning: "Dữ liệu" },
+        { word: "表面", meaning: "Bề mặt" },
+        { word: "交易", meaning: "Giao dịch" },
+        { word: "模式", meaning: "Mô hình" },
+        { word: "本质", meaning: "Bản chất" },
+        { word: "抵制", meaning: "Tẩy chay" },
+        { word: "设置", meaning: "Thiết lập" },
+        { word: "表态", meaning: "Bày tỏ quan điểm" },
+        { word: "公开", meaning: "Công khai" },
+        { word: "随意", meaning: "Tùy ý" },
+        { word: "联合", meaning: "Liên hợp" },
+        { word: "开展", meaning: "Triển khai" },
+        { word: "商标", meaning: "Nhãn hiệu" },
+        { word: "宣传", meaning: "Tuyên truyền" },
+        { word: "投资", meaning: "Đầu tư" },
+        { word: "频繁", meaning: "Tần suất cao" },
+        { word: "召开", meaning: "Triệu tập" },
+        { word: "融合", meaning: "Dung hợp" },
+        { word: "激烈", meaning: "Quyết liệt" },
+        { word: "残酷", meaning: "Tàn khốc" },
+        { word: "淘汰", meaning: "Đào thải" },
+        { word: "死亡", meaning: "Tử vong" }
     ];
 
-    // --------------------------------------------------------------
-    // Ứng dụng game
-    // --------------------------------------------------------------
-    let currentQuestions = [];
-    let currentQIndex = 0;
-    let currentScore = 0;
-    let locked = false;
-
-    const quizPanel = document.getElementById('quizPanel');
-    const resultPanel = document.getElementById('resultPanel');
-    const chineseText = document.getElementById('chineseText');
-    const pinyinText = document.getElementById('pinyinText');
-    const optionsDiv = document.getElementById('optionsContainer');
-    const feedbackDiv = document.getElementById('feedbackMsg');
-    const nextBtn = document.getElementById('nextBtn');
-    const restartBtn = document.getElementById('restartBtn');
-    const restartResultBtn = document.getElementById('restartResultBtn');
-    const scoreSpanUI = document.getElementById('scoreValue');
-    const currentIdxSpan = document.getElementById('currentIdx');
-    const totalSpan = document.getElementById('totalCount');
-
+    // shuffle mảng để học không bị nhàm
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -710,135 +441,171 @@
         return arr;
     }
 
-    function initGame() {
-        // lấy toàn bộ từ vựng, xào thứ tự
-        currentQuestions = shuffleArray([...vocabulary]);
-        currentQIndex = 0;
-        currentScore = 0;
-        locked = false;
-        updateScoreUI();
-        totalSpan.innerText = currentQuestions.length;
-        currentIdxSpan.innerText = "1";
-        quizPanel.classList.remove('hide');
-        resultPanel.classList.add('hide');
-        renderQuestion();
+    let gameWords = [];          // danh sách từ đã xáo trộn
+    let currentQuestionIndex = 0;
+    let correctAnswers = 0;
+    let answered = false;
+    let currentOptions = [];     // 4 nghĩa [đúng, sai1, sai2, sai3]
+
+    // DOM elements
+    const questionWordEl = document.getElementById("questionWord");
+    const pinyinDisplay = document.getElementById("pinyinDisplay");
+    const optionsContainer = document.getElementById("optionsContainer");
+    const feedbackMsg = document.getElementById("feedbackMsg");
+    const nextBtn = document.getElementById("nextBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const currentIdxSpan = document.getElementById("currentIdx");
+    const totalCountSpan = document.getElementById("totalCount");
+    const correctCountSpan = document.getElementById("correctCount");
+    const scoreTextDiv = document.getElementById("scoreText");
+
+    // lấy ngẫu nhiên 3 nghĩa khác (khác nghĩa đúng)
+    function getRandomMeaningsExcept(correctMeaning, excludeWordIndex) {
+        let candidates = [];
+        for (let i = 0; i < gameWords.length; i++) {
+            if (i !== excludeWordIndex && gameWords[i].meaning !== correctMeaning) {
+                candidates.push(gameWords[i].meaning);
+            }
+        }
+        // lọc trùng nếu có
+        let unique = [...new Set(candidates)];
+        while (unique.length < 3) {
+            unique.push("??? (thêm)");
+        }
+        // xáo và lấy 3
+        for (let i = unique.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [unique[i], unique[j]] = [unique[j], unique[i]];
+        }
+        return unique.slice(0, 3);
+    }
+
+    function generateOptions(currentWordObj, idx) {
+        let correctAns = currentWordObj.meaning;
+        let wrongs = getRandomMeaningsExcept(correctAns, idx);
+        let opts = [correctAns, ...wrongs];
+        // xáo trộn đáp án
+        for (let i = opts.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [opts[i], opts[j]] = [opts[j], opts[i]];
+        }
+        return opts;
     }
 
     function renderQuestion() {
-        if (currentQIndex >= currentQuestions.length) {
-            endGame();
-            return;
-        }
-        locked = false;
-        const q = currentQuestions[currentQIndex];
-        chineseText.innerText = q.word;
-        pinyinText.innerText = q.pinyin;
+        if (gameWords.length === 0) return;
+        const currentWord = gameWords[currentQuestionIndex];
+        questionWordEl.innerText = currentWord.word;
+        // Ẩn pinyin hoặc hiện nhẹ (không có pinyin trong data thì để trống - học thuần chữ)
+        pinyinDisplay.innerText = "";   // không ảnh hưởng game, bỏ phiên âm theo yêu cầu chỉ hiện trung - việt
 
-        // Tạo 4 đáp án: 1 đúng + 3 random khác (có thể lấy từ vocabulary khác)
-        let meaningPool = vocabulary.map(v => v.meaning).filter(m => m !== q.meaning);
-        meaningPool = [...new Set(meaningPool)]; // bỏ trùng
-        let wrongOptions = [];
-        while (wrongOptions.length < 3 && meaningPool.length > 0) {
-            const rand = meaningPool[Math.floor(Math.random() * meaningPool.length)];
-            if (!wrongOptions.includes(rand) && rand !== q.meaning) {
-                wrongOptions.push(rand);
-            }
-            if (meaningPool.length < 3) break;
-        }
-        // nếu không đủ 3 wrong thì bổ sung tạm
-        while (wrongOptions.length < 3) {
-            wrongOptions.push("(từ khác)");
-        }
-        let options = [q.meaning, ...wrongOptions];
-        options = shuffleArray(options);
-
-        // render các nút
-        optionsDiv.innerHTML = '';
-        const letters = ['A', 'B', 'C', 'D'];
-        options.forEach((opt, idx) => {
-            const btn = document.createElement('div');
-            btn.className = 'opt-btn';
-            btn.innerHTML = `<span class="opt-prefix">${letters[idx]}</span><span class="opt-text">${opt}</span>`;
-            btn.onclick = () => checkAnswer(opt, q.meaning, btn);
-            optionsDiv.appendChild(btn);
+        // new options
+        currentOptions = generateOptions(currentWord, currentQuestionIndex);
+        const btns = optionsContainer.querySelectorAll(".option-btn");
+        btns.forEach((btn, idx) => {
+            btn.innerText = `${String.fromCharCode(65+idx)}. ${currentOptions[idx]}`;
+            btn.style.background = "white";
+            btn.style.borderColor = "#e9cfb0";
+            btn.disabled = false;
         });
-        feedbackDiv.innerText = '';
+
+        answered = false;
+        feedbackMsg.innerHTML = "🤔 Hãy chọn đáp án đúng!";
+        feedbackMsg.className = "message";
+        // cập nhật chỉ số tiến độ
+        currentIdxSpan.innerText = currentQuestionIndex+1;
+        totalCountSpan.innerText = gameWords.length;
+        correctCountSpan.innerText = correctAnswers;
+        scoreTextDiv.innerHTML = `✨ Đã đúng ${correctAnswers} / ${gameWords.length} từ ✨`;
     }
 
-    function checkAnswer(selected, correctMeaning, btnElement) {
-        if (locked) return;
-        locked = true;
-        const allBtns = document.querySelectorAll('.opt-btn');
-        if (selected === correctMeaning) {
-            // Đúng
-            currentScore += 10;
-            updateScoreUI();
-            feedbackDiv.innerText = '✅ Đúng rồi! +10 điểm';
-            feedbackDiv.style.color = '#2e7d32';
-            btnElement.classList.add('correct');
-            // highlight đáp án đúng nếu chưa highlight
-            allBtns.forEach(btn => {
-                const textSpan = btn.querySelector('.opt-text');
-                if (textSpan && textSpan.innerText === correctMeaning) {
-                    btn.classList.add('correct');
+    function handleAnswer(selectedIdx) {
+        if (answered) return;
+        const selectedMeaning = currentOptions[selectedIdx];
+        const currentWordObj = gameWords[currentQuestionIndex];
+        const isCorrect = (selectedMeaning === currentWordObj.meaning);
+
+        const btns = optionsContainer.querySelectorAll(".option-btn");
+        if (isCorrect) {
+            correctAnswers++;
+            feedbackMsg.innerHTML = "✅ Chính xác! +1 điểm";
+            feedbackMsg.className = "message correct";
+            // tô xanh đáp án đúng
+            btns.forEach(btn => {
+                if (btn.innerText.substring(3) === currentWordObj.meaning) {
+                    btn.style.background = "#b7e0b0";
+                    btn.style.borderColor = "#2b6e4f";
                 }
             });
         } else {
-            // Sai
-            feedbackDiv.innerText = `❌ Sai rồi! Đáp án đúng là: ${correctMeaning}`;
-            feedbackDiv.style.color = '#c7362b';
-            btnElement.classList.add('wrong');
-            allBtns.forEach(btn => {
-                const textSpan = btn.querySelector('.opt-text');
-                if (textSpan && textSpan.innerText === correctMeaning) {
-                    btn.classList.add('correct');
+            feedbackMsg.innerHTML = `❌ Sai rồi. Đáp án đúng: "${currentWordObj.meaning}"`;
+            feedbackMsg.className = "message wrong";
+            btns.forEach(btn => {
+                if (btn.innerText.substring(3) === currentWordObj.meaning) {
+                    btn.style.background = "#b7e0b0";
+                    btn.style.borderColor = "#2b6e4f";
+                }
+                if (btn === btns[selectedIdx]) {
+                    btn.style.background = "#f4bc9a";
+                    btn.style.borderColor = "#bc3f2c";
                 }
             });
         }
-        // disable tất cả nút
-        allBtns.forEach(btn => {
-            btn.style.pointerEvents = 'none';
-        });
-    }
+        correctCountSpan.innerText = correctAnswers;
+        scoreTextDiv.innerHTML = `📊 Đã đúng ${correctAnswers} / ${gameWords.length}`;
+        answered = true;
 
-    function updateScoreUI() {
-        scoreSpanUI.innerText = currentScore;
+        // vô hiệu hóa các nút đáp án
+        btns.forEach(btn => { btn.disabled = true; });
     }
 
     function nextQuestion() {
-        if (!locked && currentQIndex < currentQuestions.length) {
-            // chưa chọn đáp án -> không cho qua
-            feedbackDiv.innerText = '⚠️ Hãy chọn một đáp án trước!';
+        if (!answered && currentQuestionIndex < gameWords.length-1) {
+            feedbackMsg.innerHTML = "⚠️ Hãy trả lời câu hỏi trước khi tiếp tục!";
             return;
         }
-        currentQIndex++;
-        if (currentQIndex < currentQuestions.length) {
-            currentIdxSpan.innerText = currentQIndex + 1;
+        if (currentQuestionIndex + 1 < gameWords.length) {
+            currentQuestionIndex++;
             renderQuestion();
         } else {
-            endGame();
+            if (answered || gameWords.length === 0) {
+                feedbackMsg.innerHTML = "🏆 Hoàn thành! Nhấn 'Chơi lại' để tiếp tục luyện tập.";
+                feedbackMsg.className = "message correct";
+                nextBtn.disabled = true;
+            } else {
+                feedbackMsg.innerHTML = "🔔 Cần trả lời câu cuối trước khi kết thúc!";
+            }
         }
     }
 
-    function endGame() {
-        quizPanel.classList.add('hide');
-        resultPanel.classList.remove('hide');
-        const percent = Math.round((currentScore / (currentQuestions.length * 10)) * 100);
-        document.getElementById('finalScoreMsg').innerHTML = `Bạn đã trả lời ${currentQuestions.length} câu.<br>🏆 Điểm số: ${currentScore} / ${currentQuestions.length * 10}<br>📊 Tỉ lệ đúng: ${percent}%`;
+    function resetGame() {
+        // tạo bản sao và xáo trộn
+        gameWords = shuffleArray([...vocabulary]);
+        currentQuestionIndex = 0;
+        correctAnswers = 0;
+        answered = false;
+        nextBtn.disabled = false;
+        renderQuestion();
     }
 
-    function restartGame() {
-        initGame();
+    function attachEvents() {
+        const btns = optionsContainer.querySelectorAll(".option-btn");
+        btns.forEach((btn, idx) => {
+            btn.addEventListener("click", () => handleAnswer(idx));
+        });
+        nextBtn.addEventListener("click", nextQuestion);
+        resetBtn.addEventListener("click", () => resetGame());
     }
 
-    // sự kiện
-    nextBtn.addEventListener('click', nextQuestion);
-    restartBtn.addEventListener('click', restartGame);
-    restartResultBtn.addEventListener('click', restartGame);
+    // Khởi tạo game
+    function init() {
+        gameWords = shuffleArray([...vocabulary]);
+        totalCountSpan.innerText = gameWords.length;
+        attachEvents();
+        renderQuestion();
+    }
 
-    // start
-    initGame();
+    init();
 </script>
 </body>
 </html>
-```
